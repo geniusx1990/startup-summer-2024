@@ -1,8 +1,8 @@
 import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
-
 import "./App.css";
+import Demo from "./pages/mainpage/Demo";
 
 export default function App() {
-  return <MantineProvider>{/* Your app here */}</MantineProvider>;
+  return <MantineProvider><Demo/></MantineProvider>;
 }

@@ -1,0 +1,23 @@
+.link-name span {
+  font-size: 16px;
+}
+
+.link-name {
+  font-family: Inter;
+  font-weight: 700;
+  line-height: 22.4px;
+}
+
+.link-name:hover {
+  background-color: #e5d5fa;
+  color: #9854f6;
+  border-radius: 8px;
+}
+
+.link-name:first-child {
+    margin-bottom: 16px;
+}
+
+.link-name {
+    padding: 10px;
+}
