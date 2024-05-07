@@ -1,0 +1,16 @@
+.not-found__message {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24.2px;
+  margin-top: 48px;
+  margin-bottom: 0;
+}
+
+.not-found {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -12,7 +12,7 @@ export default function App() {
   return (
     <AppShell
       navbar={{
-        width: 300,
+        width: 280,
         breakpoint: "sm",
         collapsed: { mobile: !opened },
       }}
@@ -20,7 +20,7 @@ export default function App() {
       <Header toggle={toggle} opened={opened} />
       <Navbar />
 
-      <AppShell.Main>
+      <AppShell.Main className="main-content">
         <RouterSwitcher />
       </AppShell.Main>
     </AppShell>
