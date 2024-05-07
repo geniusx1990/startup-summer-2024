@@ -4,8 +4,8 @@ import NavigationLink from "../Link/NavigationLink";
 export default function Navigation() {
   return (
     <div className="navigation-list">
-      <NavigationLink labelName="Movies" />
-      <NavigationLink labelName="Rated movies" />
+      <NavigationLink labelName="Movies" route="movies" />
+      <NavigationLink labelName="Rated movies" route="ratedmovies" />
     </div>
   );
 }
