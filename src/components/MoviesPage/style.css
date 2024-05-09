@@ -1,0 +1,13 @@
+.movies-container__title {
+  margin: 0;
+  font-family: Inter;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 44.8px;
+}
+
+.movies-container {
+  width: 100%;
+  padding: 40px 90px 0px 90px;
+  margin: 0;
+}
