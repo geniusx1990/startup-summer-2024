@@ -1,24 +1,22 @@
 import "./style.css";
 import { proxyURL, routes } from "../../utils/api";
-import { Genre, Movie } from "../../utils/types";
+import { FilterOptions, Genre, Movie } from "../../utils/types";
 import MoviesList from "../MoviesList/MoviesList";
 import FilterComponent from "../FilterComponent/FilterComponent";
 import { useMantineTheme } from "@mantine/core";
 import { useState, useEffect } from "react";
+import { years } from "../../utils/arrayYears";
 
 export default function MoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
 
-  //const [filterTextValue, setTextValue] = useState("");
-
   const moviesURL = `${proxyURL}${routes.movies}`;
   const genresURL = `${proxyURL}${routes.genres}`;
 
-  function onFilterValueSelected(event: React.ChangeEvent<HTMLSelectElement>) {
-    console.log(event.target.value);
-    //const x = event.target.value.toString();
-    // setTextValue(x);
+  function onFilterChanged({ genre, year }: FilterOptions) {
+    console.log("Selected genre:", genre);
+    console.log("Selected year:", year);
   }
 
   const theme = useMantineTheme();
@@ -39,8 +37,9 @@ export default function MoviesPage() {
     >
       <h1 className="movies-container__title">Movies Page</h1>
       <FilterComponent
+        years={years}
         genres={genres}
-        filterValueSelected={onFilterValueSelected}
+        onFilterChanged={onFilterChanged}
       />
       <MoviesList films={films} genres={genres} />
     </div>

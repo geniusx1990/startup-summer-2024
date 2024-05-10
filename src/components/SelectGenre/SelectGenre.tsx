@@ -11,7 +11,7 @@ export default function SelectGenre({
   genres,
   filterValueSelected,
 }: SelectGenreProps) {
-  function onFilterValueChanged(event: React.ChangeEvent<HTMLSelectElement>) {
+  function onGenreChange(event: React.ChangeEvent<HTMLSelectElement>) {
     filterValueSelected(event);
   }
 
@@ -32,7 +32,7 @@ export default function SelectGenre({
     <NativeSelect
       label="Genres"
       data={combinedData}
-      onChange={onFilterValueChanged}
+      onChange={onGenreChange}
     />
   );
 }
