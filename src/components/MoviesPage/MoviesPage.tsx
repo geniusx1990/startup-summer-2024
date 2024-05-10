@@ -10,9 +10,16 @@ export default function MoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
 
+  //const [filterTextValue, setTextValue] = useState("");
+
   const moviesURL = `${proxyURL}${routes.movies}`;
   const genresURL = `${proxyURL}${routes.genres}`;
 
+  function onFilterValueSelected(event: React.ChangeEvent<HTMLSelectElement>) {
+    console.log(event.target.value);
+    //const x = event.target.value.toString();
+    // setTextValue(x);
+  }
 
   const theme = useMantineTheme();
   useEffect(() => {
@@ -31,7 +38,10 @@ export default function MoviesPage() {
       style={{ backgroundColor: theme.colors.gray[2] }}
     >
       <h1 className="movies-container__title">Movies Page</h1>
-      <FilterComponent genres={genres}/>
+      <FilterComponent
+        genres={genres}
+        filterValueSelected={onFilterValueSelected}
+      />
       <MoviesList films={films} genres={genres} />
     </div>
   );
