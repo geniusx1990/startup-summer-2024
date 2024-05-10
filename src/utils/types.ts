@@ -24,3 +24,4 @@ export interface FilterOptions {
   genre: string | null;
   year: string | null;
 }
+

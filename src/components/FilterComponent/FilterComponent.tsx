@@ -1,41 +1,35 @@
-import { useState } from "react";
-import { YearOption } from "../../utils/arrayYears";
-import { FilterOptions, Genre } from "../../utils/types";
-import SelectGenre from "../SelectGenre/SelectGenre";
-import SelectYear from "../SelectYear/SelectYear";
+import "./style.css";
 
+import { YearOption } from "../../utils/arrayYears";
+import { Genre } from "../../utils/types";
+import CustomMultiSelectComponent from "../CustomMultiSelectComponent/CustomMultiSelectComponent";
 interface FilterComponentProps {
   genres: Genre[];
   years: YearOption[];
-  onFilterChanged: (options: FilterOptions) => void;
+  onGenreChange: (selectedGenres: string[]) => void;
+  onYearChange: (selectedYears: string[]) => void;
 }
 
 export default function FilterComponent({
   genres,
   years,
-  onFilterChanged,
+  onGenreChange,
+  onYearChange,
 }: FilterComponentProps) {
-  const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
-  const [selectedYear, setSelectedYear] = useState<string | null>(null);
-
-  const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const genre = event.target.value;
-    setSelectedGenre(genre);
-
-    onFilterChanged({ genre, year: selectedYear });
-  };
-
-  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const year = event.target.value;
-    setSelectedYear(year);
-
-    onFilterChanged({ genre: selectedGenre, year });
-  };
-
   return (
-    <>
-      <SelectGenre genres={genres} filterValueSelected={handleGenreChange} />
-      <SelectYear years={years} filterValueSelected={handleYearChange} />
-    </>
+    <div className="filter-container">
+      <CustomMultiSelectComponent
+        list={genres}
+        placeholder="Select genre"
+        label="Genres"
+        onChange={onGenreChange}
+      />
+      <CustomMultiSelectComponent
+        list={years}
+        placeholder="Select release year"
+        label="Release year"
+        onChange={onYearChange}
+      />
+    </div>
   );
 }

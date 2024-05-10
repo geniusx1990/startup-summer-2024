@@ -1,6 +1,6 @@
 export interface YearOption {
-  value: string;
-  label: string;
+  id: number;
+  name: string;
 }
 
 export const years: YearOption[] = [];
@@ -10,7 +10,7 @@ const endYear = new Date().getFullYear();
 
 for (let year = startYear; year <= endYear; year++) {
   years.push({
-    value: year.toString(),
-    label: year.toString(),
+    id: year,
+    name: year.toString(),
   });
 }
