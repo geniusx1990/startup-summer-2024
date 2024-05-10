@@ -3,6 +3,8 @@ import "./style.css";
 import { YearOption } from "../../utils/arrayYears";
 import { Genre } from "../../utils/types";
 import CustomMultiSelectComponent from "../CustomMultiSelectComponent/CustomMultiSelectComponent";
+import CustomSelectComponent from "../CustomSelectComponent/CustomSelectComponent";
+import { Button } from "@mantine/core";
 interface FilterComponentProps {
   genres: Genre[];
   years: YearOption[];
@@ -30,6 +32,19 @@ export default function FilterComponent({
         label="Release year"
         onChange={onYearChange}
       />
+      <div className="rainting-container">
+        <CustomSelectComponent label="Ratings" placeholder="From" />
+        <CustomSelectComponent placeholder="To" />
+      </div>
+      <Button
+        size="md"
+        variant="transparent"
+        className="reset-filter-button"
+        data-disabled
+        onClick={(event) => event.preventDefault()}
+      >
+        Reset filters
+      </Button>
     </div>
   );
 }

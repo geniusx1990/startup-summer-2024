@@ -1,3 +1,38 @@
 .filter-container {
-    display: flex;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.rainting-container {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.rainting-container > :first-child {
+  margin-right: 8px;
+}
+
+.reset-filter-button {
+  height: 42px;
+  width: 81px;
+  gap: 8px;
+  display: flex;
+  --button-bd: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reset-filter-button {
+  width: 100%;
+  background-color: transparent;
+}
+
+@media (max-width: 1200px) {
+  .filter-container {
+    flex-direction: column;
+  }
 }

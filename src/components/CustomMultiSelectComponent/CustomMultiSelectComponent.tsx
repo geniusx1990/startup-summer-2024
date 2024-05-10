@@ -12,7 +12,7 @@ interface SelectProps<T extends ListItem> {
   list: T[];
   placeholder: string;
   label: string;
-  onChange: (value: string[]) => void; 
+  onChange: (value: string[]) => void;
 }
 
 export default function CustomMultiSelectComponent<T extends ListItem>({
@@ -31,16 +31,20 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
   const handleChange = (newValue: string[]) => {
     setValue(newValue);
     onChange(newValue);
-};
-
+  };
 
   return (
     <MultiSelect
+      className="multi-select"
       placeholder={placeholder}
       classNames={{
         label: "custom-label",
         input: "custom-input",
         wrapper: "custom-wrapper",
+        section: "custom-section",
+        pill: "custom-pil",
+        option: "custom-option",
+        dropdown: "custom-dropdown",
       }}
       radius={8}
       rightSection={
@@ -51,6 +55,14 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
       value={value}
       onChange={handleChange}
       hidePickedOptions
+      clearable
+      comboboxProps={{
+        dropdownPadding: 4,
+        transitionProps: {
+          transition: "pop",
+          duration: 200,
+        },
+      }}
     />
   );
 }
