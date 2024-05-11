@@ -25,3 +25,7 @@ export interface FilterOptions {
   year: string | null;
 }
 
+export interface Rating {
+  value: string;
+  label: string;
+}
