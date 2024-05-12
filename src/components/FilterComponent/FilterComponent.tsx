@@ -1,6 +1,6 @@
 import "./style.css";
 
-import { YearOption } from "../../utils/arrayYears";
+import { ratingValues, sortByValues, yearsValues } from "../../utils/constants";
 import { Genre, UserInputFilter } from "../../utils/types";
 import CustomMultiSelectComponent from "../CustomMultiSelectComponent/CustomMultiSelectComponent";
 import CustomSelectComponent from "../CustomSelectComponent/CustomSelectComponent";
@@ -8,22 +8,20 @@ import { Button } from "@mantine/core";
 import { useState } from "react";
 interface FilterComponentProps {
   genres: Genre[];
-  years: YearOption[];
   onUpdateFilter: (newFilterData: UserInputFilter) => void;
 }
 
 export default function FilterComponent({
   genres,
-  years,
   onUpdateFilter,
 }: FilterComponentProps) {
   const [filterData, setFilterData] = useState<UserInputFilter>({
     selectedGenres: [],
-    selectedYears: [],
+    selectedYears: null,
     ratingFrom: null,
     ratingTo: null,
+    sortBy: null,
   });
-
 
   function handleChange(
     inputIdentifier: keyof UserInputFilter,
@@ -31,6 +29,7 @@ export default function FilterComponent({
       | string[]
       | UserInputFilter["ratingFrom"]
       | UserInputFilter["ratingTo"]
+      | UserInputFilter["sortBy"]
       | null
   ) {
     const newFilter = {
@@ -41,7 +40,6 @@ export default function FilterComponent({
     onUpdateFilter(newFilter);
   }
 
-  console.log(filterData);
   return (
     <div className="filter-container">
       <CustomMultiSelectComponent
@@ -50,19 +48,21 @@ export default function FilterComponent({
         label="Genres"
         onChange={(newValue) => handleChange("selectedGenres", newValue)}
       />
-      <CustomMultiSelectComponent
-        list={years}
-        placeholder="Select release year"
-        label="Release year"
+      <CustomSelectComponent
+        arrayInput={yearsValues}
+        label="Select release year"
+        placeholder="Release year"
         onChange={(newValue) => handleChange("selectedYears", newValue)}
       />
       <div className="rainting-container">
         <CustomSelectComponent
+          arrayInput={ratingValues}
           label="Ratings"
           placeholder="From"
           onChange={(newValue) => handleChange("ratingFrom", newValue)}
         />
         <CustomSelectComponent
+          arrayInput={ratingValues}
           placeholder="To"
           onChange={(newValue) => handleChange("ratingTo", newValue)}
         />
@@ -76,6 +76,12 @@ export default function FilterComponent({
       >
         Reset filters
       </Button>
+      <CustomSelectComponent
+        label="Sort by"
+        arrayInput={sortByValues}
+        defaultValue={{ label: "Most Popular", value: "popularity.desc" }}
+        onChange={(newValue) => handleChange("sortBy", newValue)}
+      />
     </div>
   );
 }

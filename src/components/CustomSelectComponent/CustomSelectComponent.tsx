@@ -1,31 +1,31 @@
 import { useState } from "react";
 import "./style.css";
 import { ComboboxItem, Select } from "@mantine/core";
+import { OptionInterface } from "../../utils/types";
 
 interface CustomSelectProps {
   label?: string;
-  placeholder: string;
+  defaultValue?: OptionInterface;
+  placeholder?: string;
+  arrayInput: OptionInterface[];
   onChange: (_value: string | null) => void;
 }
 export default function CustomSelectComponent({
   label,
   placeholder,
-  onChange
+  arrayInput,
+  defaultValue,
+  onChange,
 }: CustomSelectProps) {
-  const [value, setValue] = useState<ComboboxItem | null>(null);
+  const [value, setValue] = useState<ComboboxItem | null>({
+    label: "Most Popular",
+    value: "popularity.desc",
+  });
 
   const handleChange = (_value: string | null, option: ComboboxItem | null) => {
-    setValue(option);
+    setValue(option as OptionInterface);
     onChange(_value);
-
   };
-
-  const dataInput = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"].map(
-    (value) => ({
-      value,
-      label: value,
-    })
-  );
 
   return (
     <Select
@@ -39,7 +39,8 @@ export default function CustomSelectComponent({
       label={label}
       placeholder={placeholder}
       onChange={handleChange}
-      data={dataInput}
+      data={arrayInput}
+      defaultValue={defaultValue?.label}
       radius={8}
       value={value ? value.value : null}
       comboboxProps={{ transitionProps: { transition: "pop", duration: 200 } }}
