@@ -25,6 +25,7 @@ export default function MoviesPage() {
 
   const moviesURL = `${proxyURL}${routes.movies}`;
   const genresURL = `${proxyURL}${routes.genres}`;
+  console.log(totalPages);
 
   useEffect(() => {
     const params = new URLSearchParams();

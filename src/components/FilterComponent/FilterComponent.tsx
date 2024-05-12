@@ -71,8 +71,31 @@ export default function FilterComponent({
         size="md"
         variant="transparent"
         className="reset-filter-button"
-        data-disabled
-        onClick={(event) => event.preventDefault()}
+        disabled={
+          !(
+            filterData.selectedGenres.length ||
+            filterData.selectedYears ||
+            filterData.ratingFrom ||
+            filterData.ratingTo ||
+            filterData.sortBy
+          )
+        }
+        onClick={() => {
+          setFilterData({
+            selectedGenres: [],
+            selectedYears: null,
+            ratingFrom: null,
+            ratingTo: null,
+            sortBy: null,
+          });
+          onUpdateFilter({
+            selectedGenres: [],
+            selectedYears: null,
+            ratingFrom: null,
+            ratingTo: null,
+            sortBy: null,
+          });
+        }}
       >
         Reset filters
       </Button>
