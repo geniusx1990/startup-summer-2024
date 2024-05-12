@@ -1,3 +1,4 @@
+
 export interface Genre {
   id: number;
   name: string;
@@ -28,4 +29,11 @@ export interface FilterOptions {
 export interface Rating {
   value: string;
   label: string;
+}
+
+export interface UserInputFilter {
+  selectedGenres: string[];
+  selectedYears: string[];
+  ratingFrom: string | null;
+  ratingTo: string | null;
 }

@@ -1,46 +1,28 @@
 import "./style.css";
 import { proxyURL, routes } from "../../utils/api";
-import { Genre, Movie } from "../../utils/types";
+import { Genre, Movie, UserInputFilter } from "../../utils/types";
 import MoviesList from "../MoviesList/MoviesList";
 import FilterComponent from "../FilterComponent/FilterComponent";
-import { ComboboxItem, useMantineTheme } from "@mantine/core";
+import { useMantineTheme } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { years } from "../../utils/arrayYears";
 
 export default function MoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  const [selectedYears, setSelectedYears] = useState<string[]>([]);
-  const [ratingFrom, setRatingFrom] = useState<ComboboxItem | null>(null);
-  const [ratingTo, setRatingTo] = useState<ComboboxItem | null>(null);
 
-  const handleGenreChange = (newSelectedGenres: string[]) => {
-    setSelectedGenres(newSelectedGenres);
-  };
-  const handleYearChange = (newSelectedYears: string[]) => {
-    setSelectedYears(newSelectedYears);
-  };
+  const [filterData, setFilterData] = useState<UserInputFilter>({
+    selectedGenres: [],
+    selectedYears: [],
+    ratingFrom: null,
+    ratingTo: null,
+  });
 
-  const handleRatingFrom = (
-    value: string | null,
-    option: ComboboxItem | null
-  ) => {
-    setRatingFrom(option);
+  const updateFilterData = (newFilterData: UserInputFilter) => {
+    setFilterData(newFilterData);
   };
 
-  const handleRatingTo = (
-    value: string | null,
-    option: ComboboxItem | null
-  ) => {
-    setRatingTo(option);
-  };
-
-  console.log(ratingFrom);
-  console.log(ratingTo);
-  console.log(selectedGenres);
-  console.log(selectedYears);
-
+  console.log(filterData);
   const moviesURL = `${proxyURL}${routes.movies}`;
   const genresURL = `${proxyURL}${routes.genres}`;
 
@@ -64,10 +46,7 @@ export default function MoviesPage() {
       <FilterComponent
         years={years}
         genres={genres}
-        onGenreChange={handleGenreChange}
-        onYearChange={handleYearChange}
-        onRatingFromChange={handleRatingFrom}
-        onRatingToChange={handleRatingTo}
+        onUpdateFilter={updateFilterData}
       />
       <MoviesList films={films} genres={genres} />
     </div>
