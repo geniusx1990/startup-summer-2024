@@ -20,11 +20,6 @@ export interface Movie {
   vote_count: number;
 }
 
-export interface FilterOptions {
-  genre: string | null;
-  year: string | null;
-}
-
 export interface Rating {
   value: string;
   label: string;

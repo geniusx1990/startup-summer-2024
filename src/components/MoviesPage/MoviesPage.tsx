@@ -5,12 +5,14 @@ import MoviesList from "../MoviesList/MoviesList";
 import FilterComponent from "../FilterComponent/FilterComponent";
 import { useMantineTheme } from "@mantine/core";
 import { useState, useEffect } from "react";
+import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
 
 export default function MoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
   const theme = useMantineTheme();
-  const [totalPages, setTotalPages] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [filterData, setFilterData] = useState<UserInputFilter>({
     selectedGenres: [],
     selectedYears: null,
@@ -25,9 +27,9 @@ export default function MoviesPage() {
 
   const moviesURL = `${proxyURL}${routes.movies}`;
   const genresURL = `${proxyURL}${routes.genres}`;
-  console.log(totalPages);
 
   useEffect(() => {
+    setIsLoading(true);
     const params = new URLSearchParams();
     if (filterData.selectedGenres.length > 0) {
       params.append("with_genres", filterData.selectedGenres.join(","));
@@ -48,20 +50,25 @@ export default function MoviesPage() {
     } else {
       params.append("sort_by", "popularity.desc");
     }
+    params.append("page", currentPage.toString());
 
     const urlWithParams = `${moviesURL}?${params}&language=en-US`;
-
+    console.log(urlWithParams);
     fetch(urlWithParams)
       .then((response) => response.json())
       .then((data) => {
         setFilms(data.results as Movie[]);
-        setTotalPages(data.total_pages);
+        setIsLoading(false);
       });
-  }, [filterData]);
+  }, [filterData, currentPage]);
+
   useEffect(() => {
     fetch(genresURL)
       .then((response) => response.json())
-      .then((data) => setGenres(data as Genre[]));
+      .then((data) => {
+        setGenres(data as Genre[]);
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -71,7 +78,16 @@ export default function MoviesPage() {
     >
       <h1 className="movies-container__title">Movies Page</h1>
       <FilterComponent genres={genres} onUpdateFilter={updateFilterData} />
-      <MoviesList films={films} genres={genres} />
+      {isLoading ? (
+        <LoaderComponent />
+      ) : (
+        <MoviesList
+          films={films}
+          genres={genres}
+          onChange={(activePage: number) => setCurrentPage(activePage)}
+          currentPage={currentPage}
+        />
+      )}
     </div>
   );
 }
