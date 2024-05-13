@@ -41,70 +41,74 @@ export default function FilterComponent({
   }
 
   return (
-    <div className="filter-container">
-      <CustomMultiSelectComponent
-        list={genres}
-        placeholder="Select genre"
-        label="Genres"
-        onChange={(newValue) => handleChange("selectedGenres", newValue)}
-      />
-      <CustomSelectComponent
-        arrayInput={yearsValues}
-        label="Select release year"
-        placeholder="Release year"
-        onChange={(newValue) => handleChange("selectedYears", newValue)}
-      />
-      <div className="rainting-container">
-        <CustomSelectComponent
-          arrayInput={ratingValues}
-          label="Ratings"
-          placeholder="From"
-          onChange={(newValue) => handleChange("ratingFrom", newValue)}
+    <>
+      <div className="filter-container">
+        <CustomMultiSelectComponent
+          list={genres}
+          placeholder="Select genre"
+          label="Genres"
+          onChange={(newValue) => handleChange("selectedGenres", newValue)}
         />
         <CustomSelectComponent
-          arrayInput={ratingValues}
-          placeholder="To"
-          onChange={(newValue) => handleChange("ratingTo", newValue)}
+          arrayInput={yearsValues}
+          label="Select release year"
+          placeholder="Release year"
+          onChange={(newValue) => handleChange("selectedYears", newValue)}
+        />
+        <div className="rainting-container">
+          <CustomSelectComponent
+            arrayInput={ratingValues}
+            label="Ratings"
+            placeholder="From"
+            onChange={(newValue) => handleChange("ratingFrom", newValue)}
+          />
+          <CustomSelectComponent
+            arrayInput={ratingValues}
+            placeholder="To"
+            onChange={(newValue) => handleChange("ratingTo", newValue)}
+          />
+        </div>
+        <Button
+          size="md"
+          variant="transparent"
+          className="reset-filter-button"
+          disabled={
+            !(
+              filterData.selectedGenres.length ||
+              filterData.selectedYears ||
+              filterData.ratingFrom ||
+              filterData.ratingTo ||
+              filterData.sortBy
+            )
+          }
+          onClick={() => {
+            setFilterData({
+              selectedGenres: [],
+              selectedYears: null,
+              ratingFrom: null,
+              ratingTo: null,
+              sortBy: null,
+            });
+            onUpdateFilter({
+              selectedGenres: [],
+              selectedYears: null,
+              ratingFrom: null,
+              ratingTo: null,
+              sortBy: null,
+            });
+          }}
+        >
+          Reset filters
+        </Button>
+      </div>
+      <div className="sort-container">
+        <CustomSelectComponent
+          label="Sort by"
+          arrayInput={sortByValues}
+          defaultValue={{ label: "Most Popular", value: "popularity.desc" }}
+          onChange={(newValue) => handleChange("sortBy", newValue)}
         />
       </div>
-      <Button
-        size="md"
-        variant="transparent"
-        className="reset-filter-button"
-        disabled={
-          !(
-            filterData.selectedGenres.length ||
-            filterData.selectedYears ||
-            filterData.ratingFrom ||
-            filterData.ratingTo ||
-            filterData.sortBy
-          )
-        }
-        onClick={() => {
-          setFilterData({
-            selectedGenres: [],
-            selectedYears: null,
-            ratingFrom: null,
-            ratingTo: null,
-            sortBy: null,
-          });
-          onUpdateFilter({
-            selectedGenres: [],
-            selectedYears: null,
-            ratingFrom: null,
-            ratingTo: null,
-            sortBy: null,
-          });
-        }}
-      >
-        Reset filters
-      </Button>
-      <CustomSelectComponent
-        label="Sort by"
-        arrayInput={sortByValues}
-        defaultValue={{ label: "Most Popular", value: "popularity.desc" }}
-        onChange={(newValue) => handleChange("sortBy", newValue)}
-      />
-    </div>
+    </>
   );
 }

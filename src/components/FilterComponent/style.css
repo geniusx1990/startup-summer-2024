@@ -1,7 +1,7 @@
 .filter-container {
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 16px;
   width: 100%;
 }
@@ -9,7 +9,6 @@
 .rainting-container {
   display: flex;
   align-items: flex-end;
-  width: 100%;
 }
 
 .rainting-container > :first-child {
@@ -18,21 +17,42 @@
 
 .reset-filter-button {
   height: 42px;
-  width: 81px;
   gap: 8px;
   display: flex;
-  --button-bd: none;
   padding: 0;
   margin: 0;
+  background-color: transparent;
 }
 
-.reset-filter-button {
-  width: 100%;
-  background-color: transparent;
+.sort-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 284px;
+  margin-left: auto;
+  margin-top: 24px;
+  flex-grow: 1;
 }
 
 @media (max-width: 1200px) {
   .filter-container {
     flex-direction: column;
+    align-items: center;
+  }
+
+  .rainting-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .rainting-container > :first-child {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+  .sort-container {
+    align-items: center;
+    width: 100%;
+    margin: 0;
   }
 }

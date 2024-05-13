@@ -1,3 +1,15 @@
 .filter-select {
+  flex-grow: 1;
+}
+
+.custom-option:hover {
+    background-color: #9854f6;
+    color: #ffffff;
+  }
+    
+
+@media (max-width: 1200px) {
+  .filter-select {
     width: 100%;
+  }
 }

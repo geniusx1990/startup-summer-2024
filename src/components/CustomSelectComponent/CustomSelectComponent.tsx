@@ -35,6 +35,7 @@ export default function CustomSelectComponent({
         input: "custom-input",
         wrapper: "custom-wrapper",
         section: "custom-section",
+        option: "custom-option"
       }}
       label={label}
       placeholder={placeholder}

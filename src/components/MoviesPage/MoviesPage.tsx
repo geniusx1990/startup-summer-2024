@@ -3,14 +3,12 @@ import { proxyURL, routes } from "../../utils/api";
 import { Genre, Movie, UserInputFilter } from "../../utils/types";
 import MoviesList from "../MoviesList/MoviesList";
 import FilterComponent from "../FilterComponent/FilterComponent";
-import { useMantineTheme } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
 
 export default function MoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
-  const theme = useMantineTheme();
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterData, setFilterData] = useState<UserInputFilter>({
@@ -53,7 +51,7 @@ export default function MoviesPage() {
     params.append("page", currentPage.toString());
 
     const urlWithParams = `${moviesURL}?${params}&language=en-US`;
-    console.log(urlWithParams);
+
     fetch(urlWithParams)
       .then((response) => response.json())
       .then((data) => {
@@ -72,10 +70,7 @@ export default function MoviesPage() {
   }, []);
 
   return (
-    <div
-      className="movies-container"
-      style={{ backgroundColor: theme.colors.gray[2] }}
-    >
+    <div className="movies-container">
       <h1 className="movies-container__title">Movies Page</h1>
       <FilterComponent genres={genres} onUpdateFilter={updateFilterData} />
       {isLoading ? (
