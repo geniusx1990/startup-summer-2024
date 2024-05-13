@@ -32,12 +32,12 @@ export default function MoviesList({
     <>
       <div className="movies-list">{items}</div>
       <Pagination
+        className="pagination"
         value={activePage}
         total={totalPages}
         siblings={0}
         defaultValue={2}
         onChange={onPageChange}
-        mt="sm"
         color="#9854F6"
       />
     </>
