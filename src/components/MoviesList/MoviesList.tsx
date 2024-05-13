@@ -27,7 +27,6 @@ export default function MoviesList({
     onChange(activePage);
   };
 
-  console.log(activePage);
   return (
     <>
       <div className="movies-list">{items}</div>

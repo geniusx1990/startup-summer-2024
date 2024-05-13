@@ -1,17 +1,11 @@
 import "./style.css";
 import { Genre, Movie } from "../../utils/types";
 import { Card, Image, Text /* Badge, Button, Group */ } from "@mantine/core";
-import { getImgUrl } from "../../utils/getImage";
-
-function formatNumber(num: number) {
-  if (num >= 1000000) {
-    return (num / 1000000).toFixed(1) + "M";
-  } else if (num >= 1000) {
-    return (num / 1000).toFixed(1) + "K";
-  } else {
-    return num.toFixed(1);
-  }
-}
+import {
+  fillGenresArray,
+  formatNumber,
+} from "../../utils/functions";
+import { getStarImage } from "../../utils/getStarImage";
 
 export default function MovieCard({
   film,
@@ -25,11 +19,10 @@ export default function MovieCard({
       .filter((genre) => genreIds.includes(genre.id))
       .map((genre) => genre.name);
   };
-
   const filmGenresNames = getGenresNames(film.genre_ids, genres);
 
   return (
-    <Card shadow="sm" padding="24px" radius="md" className="movie-card">
+    <Card shadow="sm" radius="md" className="movie-card">
       <div className="card-container">
         <Image
           src={`https://image.tmdb.org/t/p/original/${film.poster_path}`}
@@ -39,37 +32,35 @@ export default function MovieCard({
         />
         <div className="card-movie-content">
           <div className="card-movie-info-top">
-            <Text className="card-movie-title">{film.title}</Text>
+            <Text className="card-movie-title">{film.original_title}</Text>
             <Text className="card-movie-year">
               {film.release_date.slice(0, 4)}
             </Text>
-            <div className="card-movie-container">
-              <div className="card-movie-rating-container">
-                <img
-                  src={getImgUrl("star.svg")}
-                  alt="star"
-                  width={"23.3px"}
-                  height={"23.3px"}
-                />
-                <Text className="card-movie-vote">
-                  {film.vote_average.toFixed(1)}
-                </Text>
-                <Text className="card-movie-popularity">
-                  ({formatNumber(film.popularity)})
-                </Text>
-              </div>
+            <div className="card-movie-rating-container">
+              <img
+                src={getStarImage('#FAB005')}
+                alt="star"
+                width={"23.3px"}
+                height={"23.3px"}
+              />
+              <Text className="card-movie-vote">
+                {film.vote_average.toFixed(1)}
+              </Text>
+              <Text className="card-movie-popularity">
+                ({formatNumber(film.vote_count)})
+              </Text>
             </div>
           </div>
           <div className="card-movie-genres-container">
             <Text className="genre-title-static">Genres</Text>
             <Text className="card-movie-genres-list">
-              {filmGenresNames.join(", ")}
+              {fillGenresArray(filmGenresNames)}
             </Text>
           </div>
         </div>
       </div>
       <img
-        src={getImgUrl("star.svg")}
+        src={getStarImage('#D5D6DC')}
         alt="star"
         width={"23.3px"}
         height={"23.3px"}
