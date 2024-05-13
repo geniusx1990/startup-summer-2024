@@ -8,7 +8,7 @@ export default function Navigation() {
       route: "movies",
     },
     {
-      label: "Security",
+      label: "Rated movies",
       route: "ratedmovies",
     },
   ];
