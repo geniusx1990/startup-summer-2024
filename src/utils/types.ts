@@ -37,3 +37,33 @@ export interface OptionInterface {
   label: string;
   value: string;
 }
+
+export interface ProductionCompany {
+  id: number;
+  logo_path: string;
+  name: string;
+  origin_country: string;
+}
+
+export interface ProductionCountry {
+  iso_3166_1: string;
+  name: string;
+}
+
+export interface MovieDetails {
+  budget: number;
+  genres: Genre[];
+  id: number;
+  original_title: string;
+  overview: string;
+  poster_path: string;
+  production_companies: ProductionCompany[];
+  production_countries: ProductionCountry[];
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  video: boolean;
+  videos: [];
+  vote_average: number;
+  vote_count: number;
+}

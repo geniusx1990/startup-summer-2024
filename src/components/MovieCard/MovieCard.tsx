@@ -14,6 +14,7 @@ import { fillGenresArray, formatNumber } from "../../utils/functions";
 import { getStarImage } from "../../utils/getStarImage";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MovieCard({
   film,
@@ -27,6 +28,11 @@ export default function MovieCard({
       .filter((genre) => genreIds.includes(genre.id))
       .map((genre) => genre.name);
   };
+  const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(`/movies/${film.id}`);
+  };
+  
   const filmGenresNames = getGenresNames(film.genre_ids, genres);
 
   const savedRating = localStorage.getItem(`${film.id}`);
@@ -56,7 +62,7 @@ export default function MovieCard({
 
   return (
     <>
-      <Card shadow="sm" radius="md" className="movie-card" p={"24px"}>
+      <Card shadow="sm" radius="md" className="movie-card" p={"24px"} onClick={handleCardClick}>
         <div className="card-container">
           <Image
             src={`https://image.tmdb.org/t/p/original/${film.poster_path}`}
@@ -99,7 +105,8 @@ export default function MovieCard({
             alt="star"
             width={"23.3px"}
             height={"23.3px"}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               open();
             }}
           />
