@@ -45,6 +45,15 @@ export default function MovieCard({
     close();
   };
 
+  const handleClose = () => {
+    if (localStorage.getItem(`${film.id}`) === null) {
+      setRating(0);
+      close();
+    } else {
+      close();
+    }
+  };
+
   return (
     <>
       <Card shadow="sm" radius="md" className="movie-card" p={"24px"}>
@@ -97,7 +106,7 @@ export default function MovieCard({
           <p className="rating-star">{savedRating}</p>
         </div>
       </Card>
-      <Modal.Root opened={opened} onClose={close}>
+      <Modal.Root opened={opened} onClose={() => handleClose()}>
         <Modal.Overlay />
         <Modal.Content w="100%" maw={{ xs: "380px", base: "320px" }} radius={8}>
           <Modal.Header>
