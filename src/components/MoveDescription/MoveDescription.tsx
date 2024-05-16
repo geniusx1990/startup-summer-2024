@@ -12,6 +12,7 @@ export default function MoveDescription({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [videoArray, setVideoArray] = useState<Video[]>([]);
+
   const videoURL = `${proxyURL}${routes.movie}?movie_id=${movieDetails?.id}/videos`;
 
   useEffect(() => {
@@ -36,7 +37,6 @@ export default function MoveDescription({
   if (!movieDetails) {
     return null;
   }
-
   function companies(arr: ProductionCompany[]) {
     return (
       <Flex mt={16} direction={"column"} gap={12}>
@@ -76,63 +76,70 @@ export default function MoveDescription({
   return (
     <Card mt={20} p={24} radius={12}>
       <Flex direction={"column"}>
-        <Text
-          fw={700}
-          style={{
-            fontSize: "20px",
-            lineHeight: "20px",
-          }}
-        >
-          Trailer
-        </Text>
-
         {isLoading ? (
           <LoaderComponent />
         ) : (
-          <Flex direction={"column"} gap={20}>
-            <iframe
-              className="video"
-              width="500"
-              height="281"
-              src={createLinkForTrailer(videoArray)}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            />
-            <Divider />
-            <div>
-              <Text
-                fw={700}
-                style={{
-                  fontSize: "20px",
-                  lineHeight: "20px",
-                }}
-              >
-                Description
-              </Text>
-              <Text
-                fw={400}
-                mt={16}
-                style={{
-                  fontSize: "16px",
-                  lineHeight: "22.4px",
-                }}
-              >
-                {movieDetails.overview}
-              </Text>
-            </div>
-            <Divider />
-            <div>
-              <Text
-                fw={700}
-                style={{
-                  fontSize: "20px",
-                  lineHeight: "20px",
-                }}
-              >
-                Production
-              </Text>
-              {companies(movieDetails.production_companies)}
-            </div>
-          </Flex>
+          <>
+            {videoArray.length !== 0 ? (
+              <>
+                <Text
+                  fw={700}
+                  style={{
+                    fontSize: "20px",
+                    lineHeight: "20px",
+                  }}
+                >
+                  Trailer
+                </Text>
+                <Flex direction={"column"} gap={20}>
+                  <iframe
+                    className="video"
+                    width="500"
+                    height="281"
+                    src={createLinkForTrailer(videoArray)}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  />
+                  <Divider />
+                </Flex>
+              </>
+            ) : null}
+            <Flex direction={"column"} gap={20}>
+              <div>
+                <Text
+                  fw={700}
+                  style={{
+                    fontSize: "20px",
+                    lineHeight: "20px",
+                  }}
+                >
+                  Description
+                </Text>
+                <Text
+                  fw={400}
+                  mt={16}
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: "22.4px",
+                  }}
+                >
+                  {movieDetails.overview}
+                </Text>
+              </div>
+              <Divider />
+              <div>
+                <Text
+                  fw={700}
+                  style={{
+                    fontSize: "20px",
+                    lineHeight: "20px",
+                  }}
+                >
+                  Production
+                </Text>
+                {companies(movieDetails.production_companies)}
+              </div>
+            </Flex>
+          </>
         )}
       </Flex>
     </Card>
