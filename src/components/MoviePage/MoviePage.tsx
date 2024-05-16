@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { Breadcrumbs, Anchor } from "@mantine/core";
 import MovieDetailsCard from "../MovieDetailsCard/MovieDetailsCard";
 import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
+import MoveDescription from "../MoveDescription/MoveDescription";
 
 export default function MoviePage() {
   const { movie_id } = useParams();
@@ -34,7 +35,6 @@ export default function MoviePage() {
       });
   }, []);
 
-  console.log(movieDetails);
   return (
     <>
       <div className="movie-container-details">
@@ -42,7 +42,10 @@ export default function MoviePage() {
         {isLoading ? (
           <LoaderComponent />
         ) : (
-          <MovieDetailsCard movieDetails={movieDetails} />
+          <>
+            <MovieDetailsCard movieDetails={movieDetails} />
+            <MoveDescription movieDetails={movieDetails} />
+          </>
         )}
       </div>
     </>
