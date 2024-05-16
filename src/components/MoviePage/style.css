@@ -1,0 +1,11 @@
+.movie-container-details {
+  padding: 40px 180px 367px 180px;
+}
+
+.breadcrumbs a {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #9854f6;
+}
