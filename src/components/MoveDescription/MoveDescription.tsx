@@ -37,7 +37,6 @@ export default function MoveDescription({
     return null;
   }
 
-  console.log(movieDetails.production_companies);
   function companies(arr: ProductionCompany[]) {
     return (
       <Flex mt={16} direction={"column"} gap={12}>

@@ -45,11 +45,6 @@ export interface ProductionCompany {
   origin_country: string;
 }
 
-export interface ProductionCountry {
-  iso_3166_1: string;
-  name: string;
-}
-
 export interface MovieDetails {
   budget: number;
   genres: Genre[];
@@ -58,7 +53,6 @@ export interface MovieDetails {
   overview: string;
   poster_path: string;
   production_companies: ProductionCompany[];
-  production_countries: ProductionCountry[];
   release_date: string;
   revenue: number;
   runtime: number;
