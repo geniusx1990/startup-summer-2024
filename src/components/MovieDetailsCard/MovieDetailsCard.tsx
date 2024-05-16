@@ -32,6 +32,26 @@ function formatBudget(budget: number): string {
   return `$${formattedBudget}`;
 }
 
+function formatDate(dateString: string): string {
+  const options: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  };
+  const date: Date = new Date(dateString);
+  return date.toLocaleDateString("en-US", options);
+}
+
+function formatDuration(minutes: number): string {
+  const hours: number = Math.floor(minutes / 60);
+  const remainingMinutes: number = minutes % 60;
+
+  const formattedHours: string = hours.toString().padStart(1, "0");
+  const formattedMinutes: string = remainingMinutes.toString().padStart(2, "0");
+
+  return `${formattedHours}h ${formattedMinutes}m`;
+}
+
 function getGenresFromArray(arr: Genre[]) {
   return arr.map((item) => item.name).join(", ");
 }
@@ -54,8 +74,8 @@ export default function MovieDetailsCard({
   ];
 
   const dataArray = [
-    movieDetails.runtime,
-    movieDetails.release_date,
+    formatDuration(movieDetails.runtime),
+    formatDate(movieDetails.release_date),
     formatBudget(movieDetails.budget),
     formatBudget(movieDetails.revenue),
     getGenresFromArray(movieDetails.genres),
