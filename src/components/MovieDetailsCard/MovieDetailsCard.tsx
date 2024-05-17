@@ -142,7 +142,7 @@ export default function MovieDetailsCard({
         >
           <Image
             src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
-            fallbackSrc={getImgUrl('noposterBig.png')}
+            fallbackSrc={getImgUrl("noposterBig.png")}
             height={352}
             width={250}
             alt={movieDetails.original_title}
