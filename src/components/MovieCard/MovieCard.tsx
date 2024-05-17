@@ -1,20 +1,12 @@
 import "./style.css";
 import { Genre, Movie } from "../../utils/types";
-import {
-  Button,
-  Card,
-  Divider,
-  Flex,
-  Image,
-  Modal,
-  Rating,
-  Text,
-} from "@mantine/core";
+import { Card, Image, Text } from "@mantine/core";
 import { fillGenresArray, formatNumber } from "../../utils/functions";
 import { getStarImage } from "../../utils/getStarImage";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import RatingModal from "../RatingModal/RatingModal";
 
 export default function MovieCard({
   film,
@@ -32,7 +24,7 @@ export default function MovieCard({
   const handleCardClick = () => {
     navigate(`/movies/${film.id}`);
   };
-  
+
   const filmGenresNames = getGenresNames(film.genre_ids, genres);
 
   const savedRating = localStorage.getItem(`${film.id}`);
@@ -62,7 +54,13 @@ export default function MovieCard({
 
   return (
     <>
-      <Card shadow="sm" radius="md" className="movie-card" p={"24px"} onClick={handleCardClick}>
+      <Card
+        shadow="sm"
+        radius="md"
+        className="movie-card"
+        p={"24px"}
+        onClick={handleCardClick}
+      >
         <div className="card-container">
           <Image
             src={`https://image.tmdb.org/t/p/original/${film.poster_path}`}
@@ -113,54 +111,15 @@ export default function MovieCard({
           <p className="rating-star">{savedRating}</p>
         </div>
       </Card>
-      <Modal.Root opened={opened} onClose={() => handleClose()}>
-        <Modal.Overlay />
-        <Modal.Content w="100%" maw={{ xs: "380px", base: "320px" }} radius={8}>
-          <Modal.Header>
-            <Modal.Title fw={700}>Your rating</Modal.Title>
-            <Modal.CloseButton />
-          </Modal.Header>
-          <Divider />
-          <Modal.Body p={16}>
-            <Flex direction="column" rowGap={16}>
-              <Text fw={700}>{film.original_title}</Text>
-              <Rating
-                value={rating}
-                onChange={(rating) => setRating(rating)}
-                defaultValue={rating}
-                w="100%"
-                styles={{
-                  root: { display: "flex", justifyContent: "space-between" },
-                }}
-                count={10}
-                size={28}
-              />
-              <Flex gap={16}>
-                <Button
-                  w="fit-content"
-                  radius={8}
-                  bg={"#9854F6"}
-                  onClick={() => {
-                    handleSaveRating();
-                  }}
-                >
-                  Save
-                </Button>
-                <Button
-                  variant="white"
-                  color="violet"
-                  w="fit-content"
-                  onClick={() => {
-                    handleRemoveRating();
-                  }}
-                >
-                  Remove rating
-                </Button>
-              </Flex>
-            </Flex>
-          </Modal.Body>
-        </Modal.Content>
-      </Modal.Root>
+      <RatingModal
+        film={film}
+        rating={rating}
+        setRating={setRating}
+        opened={opened}
+        onClose={handleClose}
+        handleSaveRating={handleSaveRating}
+        handleRemoveRating={handleRemoveRating}
+      />
     </>
   );
 }

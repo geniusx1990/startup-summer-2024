@@ -99,7 +99,7 @@ export default function MoveDescription({
                     src={createLinkForTrailer(videoArray)}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   />
-                  <Divider />
+                  <Divider mb={20} />
                 </Flex>
               </>
             ) : null}
