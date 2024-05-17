@@ -31,7 +31,9 @@ export default function MoveDescription({
 
     const video = trailer || clip;
 
-    return video ? `https://www.youtube.com/embed/${video.key}` : "";
+    return video
+      ? `https://www.youtube.com/embed/${video.key}`
+      : `https://www.youtube.com/embed/${arr[0].key}`;
   }
 
   if (!movieDetails) {

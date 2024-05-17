@@ -1,5 +1,5 @@
 import { Button, Divider, Flex, Modal, Rating, Text } from "@mantine/core";
-import { Movie } from "../../utils/types";
+import { Movie, MovieDetails } from "../../utils/types";
 
 export default function RatingModal({
   film,
@@ -10,7 +10,7 @@ export default function RatingModal({
   handleSaveRating,
   handleRemoveRating,
 }: {
-  film: Movie;
+  film: Movie | MovieDetails;
   rating: number;
   setRating: (rating: number) => void;
   opened: boolean;

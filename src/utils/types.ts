@@ -56,8 +56,6 @@ export interface MovieDetails {
   release_date: string;
   revenue: number;
   runtime: number;
-  video: boolean;
-  videos: [];
   vote_average: number;
   vote_count: number;
 }
