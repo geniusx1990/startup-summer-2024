@@ -1,12 +1,18 @@
 import "./style.css";
 import { Genre, Movie } from "../../utils/types";
 import { Card, Image, Text } from "@mantine/core";
-import { fillGenresArray, formatNumber } from "../../utils/functions";
+import {
+  fillGenresArray,
+  filmReleaseDate,
+  formatNumber,
+  voteAverateToFixed,
+} from "../../utils/functions";
 import { getStarImage } from "../../utils/getStarImage";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RatingModal from "../RatingModal/RatingModal";
+import { getImgUrl } from "../../utils/getImage";
 
 export default function MovieCard({
   film,
@@ -20,12 +26,13 @@ export default function MovieCard({
       .filter((genre) => genreIds.includes(genre.id))
       .map((genre) => genre.name);
   };
+
   const navigate = useNavigate();
   const handleCardClick = () => {
     navigate(`/movies/${film.id}`);
   };
 
-  const filmGenresNames = getGenresNames(film.genre_ids, genres);
+  const filmGenresNames = getGenresNames(film.genre_ids || [], genres);
 
   const savedRating = localStorage.getItem(`${film.id}`);
 
@@ -66,13 +73,14 @@ export default function MovieCard({
             src={`https://image.tmdb.org/t/p/original/${film.poster_path}`}
             height={170}
             width={119}
+            fallbackSrc={getImgUrl('noposterBig.png')}
             alt={film.title}
           />
           <div className="card-movie-content">
             <div className="card-movie-info-top">
               <Text className="card-movie-title">{film.original_title}</Text>
               <Text className="card-movie-year">
-                {film.release_date.slice(0, 4)}
+                {filmReleaseDate(film.release_date)}
               </Text>
               <div className="card-movie-rating-container">
                 <img
@@ -82,7 +90,7 @@ export default function MovieCard({
                   height={"23.3px"}
                 />
                 <Text className="card-movie-vote">
-                  {film.vote_average.toFixed(1)}
+                  {voteAverateToFixed(film.vote_average)}
                 </Text>
                 <Text className="card-movie-popularity">
                   ({formatNumber(film.vote_count)})

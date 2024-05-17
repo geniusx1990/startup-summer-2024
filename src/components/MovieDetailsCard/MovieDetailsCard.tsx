@@ -1,10 +1,15 @@
 import { Card, Flex, Group, Text, Image } from "@mantine/core";
 import { Genre, MovieDetails } from "../../utils/types";
 import { getStarImage } from "../../utils/getStarImage";
-import { formatNumber } from "../../utils/functions";
+import {
+  filmReleaseDate,
+  formatNumber,
+  voteAverateToFixed,
+} from "../../utils/functions";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import RatingModal from "../RatingModal/RatingModal";
+import { getImgUrl } from "../../utils/getImage";
 
 type DataType = string | number;
 
@@ -28,6 +33,9 @@ function fillData(arr: DataType[], color: string) {
   );
 }
 function formatBudget(budget: number): string {
+  if (!budget) {
+    return "";
+  }
   const formattedBudget = budget
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -36,6 +44,7 @@ function formatBudget(budget: number): string {
 }
 
 function formatDate(dateString: string): string {
+  if (!dateString) return "";
   const options: Intl.DateTimeFormatOptions = {
     month: "long",
     day: "numeric",
@@ -56,6 +65,9 @@ function formatDuration(minutes: number): string {
 }
 
 function getGenresFromArray(arr: Genre[]) {
+  if (!arr) {
+    return "";
+  }
   return arr.map((item) => item.name).join(", ");
 }
 
@@ -80,7 +92,6 @@ export default function MovieDetailsCard({
   movieDetails?: MovieDetails;
 }) {
   const savedRating = localStorage.getItem(`${movieDetails.id}`);
-
   const [rating, setRating] = useState(Number(savedRating));
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -131,7 +142,9 @@ export default function MovieDetailsCard({
         >
           <Image
             src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
+            fallbackSrc={getImgUrl('noposterBig.png')}
             height={352}
+            width={250}
             alt={movieDetails.original_title}
           />
           <Flex
@@ -158,12 +171,12 @@ export default function MovieDetailsCard({
                   color: "#7B7C88",
                 }}
               >
-                {movieDetails.release_date.slice(0, 4)}
+                {filmReleaseDate(movieDetails.release_date)}
               </Text>
               <Group justify="flex-start" gap={4}>
                 <img width={"28px"} src={getStarImage("yellow")} />
                 <Text fw={600} style={{ fontSize: "16px" }}>
-                  {movieDetails.vote_average.toFixed(1)}
+                  {voteAverateToFixed(movieDetails.vote_average)}
                 </Text>
                 <Text pl={4}>({formatNumber(movieDetails.vote_count)})</Text>
               </Group>

@@ -2,7 +2,7 @@ import "./style.css";
 import { useEffect, useState } from "react";
 import { MovieDetails } from "../../utils/types";
 import { proxyURL, routes } from "../../utils/api";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Breadcrumbs, Anchor } from "@mantine/core";
 import MovieDetailsCard from "../MovieDetailsCard/MovieDetailsCard";
 import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
@@ -10,6 +10,7 @@ import MoveDescription from "../MoveDescription/MoveDescription";
 
 export default function MoviePage() {
   const { movie_id } = useParams();
+  const navigate = useNavigate();
 
   const [movieDetails, setMovieDetails] = useState<MovieDetails>();
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +32,12 @@ export default function MoviePage() {
       .then((response) => response.json())
       .then((data) => {
         setMovieDetails(data as MovieDetails);
-        setIsLoading(false);
+        if (data.status_code === 34) {
+          navigate("/404");
+        } else {
+          setMovieDetails(data as MovieDetails);
+          setIsLoading(false);
+        }
       });
   }, []);
 

@@ -40,6 +40,9 @@ export default function MoveDescription({
     return null;
   }
   function companies(arr: ProductionCompany[]) {
+    if (!arr) {
+      return []
+    }
     return (
       <Flex mt={16} direction={"column"} gap={12}>
         {arr.map((item) => (
@@ -82,7 +85,7 @@ export default function MoveDescription({
           <LoaderComponent />
         ) : (
           <>
-            {videoArray.length !== 0 ? (
+            {videoArray?.length ? (
               <>
                 <Text
                   fw={700}
