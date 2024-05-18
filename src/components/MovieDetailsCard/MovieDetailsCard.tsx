@@ -68,7 +68,10 @@ function getGenresFromArray(arr: Genre[]) {
   if (!arr) {
     return "";
   }
-  return arr.map((item) => item.name).join(", ");
+  return arr
+    .map((item) => item.name)
+    .slice(0, 3)
+    .join(", ");
 }
 
 const defaultMovieDetails: MovieDetails = {
@@ -174,11 +177,11 @@ export default function MovieDetailsCard({
                 {filmReleaseDate(movieDetails.release_date)}
               </Text>
               <Group justify="flex-start" gap={4}>
-                <img width={"28px"} src={getStarImage("yellow")} />
+                <Image width={"28px"} src={getStarImage("yellow")} />
                 <Text fw={600} style={{ fontSize: "16px" }}>
                   {voteAverateToFixed(movieDetails.vote_average)}
                 </Text>
-                <Text pl={4}>({formatNumber(movieDetails.vote_count)})</Text>
+                <Text pl={4}>{formatNumber(movieDetails.vote_count)}</Text>
               </Group>
             </Flex>
             <Group gap={8}>
@@ -186,17 +189,24 @@ export default function MovieDetailsCard({
               {fillData(dataArray, "#000000")}
             </Group>
           </Flex>
-          <div className="rating-container" style={{ paddingRight: "24px" }}>
+          <Group
+            gap={4}
+            justify="flex-end"
+            align="flex-start"
+            style={{ flexWrap: "nowrap" }}
+          >
             <img
-              width={"28px"}
               src={getStarImage(savedRating?.toString())}
+              alt="star"
+              width={"28px"}
+              height={"28px"}
               onClick={(e) => {
                 e.stopPropagation();
                 open();
               }}
             />
-            <Text className="rating-star">{savedRating}</Text>
-          </div>
+            <Text>{savedRating}</Text>
+          </Group>
         </Group>
       </Card>
       <RatingModal

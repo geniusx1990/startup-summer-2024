@@ -18,20 +18,19 @@ export function formatNumber(num: number) {
     return "";
   }
   if (num >= 1000000) {
-    return (num / 1000000).toFixed(1) + "M";
+    return `(${(num / 1000000).toFixed(1)}M`;
   } else if (num >= 1000) {
-    return (num / 1000).toFixed(1) + "K";
+    return `(${(num / 1000).toFixed(1)}K)`;
   } else {
-    return num.toFixed(1);
+    return `(${num.toFixed(1)})`;
   }
 }
-
 
 export function filmReleaseDate(releaseDate: string): string {
   if (!releaseDate) {
     return "";
   }
-  return releaseDate.slice(0.4);
+  return releaseDate.slice(0, 4);
 }
 
 export function voteAverateToFixed(vote: number) {
@@ -40,4 +39,3 @@ export function voteAverateToFixed(vote: number) {
   }
   return vote.toFixed(1).toString();
 }
-

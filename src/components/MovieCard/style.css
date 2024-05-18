@@ -1,4 +1,4 @@
-.movie-card {
+/* .movie-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -81,18 +81,20 @@
   justify-content: space-between;
 }
 
-.rating-container {
+
+ */
+
+/*  .rating-container {
   display: flex;
-  align-items: center;
-  right: 24px;
-  top: 5px;
 }
 
 .rating-star {
   font-family: Inter;
   font-weight: 600;
   font-size: 16px;
-  margin-left: 4px;
+  padding-left: 4px;
   margin-top: 0;
   margin-bottom: 0;
 }
+ */
+
