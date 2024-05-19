@@ -95,7 +95,7 @@ export default function MovieDetailsCard({
 }: {
   movieDetails?: MovieDetails;
 }) {
-  const savedRating = localStorage.getItem(`${movieDetails.id}`);
+  const savedRating = localStorage.getItem(`film-${movieDetails.id}`);
   const [rating, setRating] = useState(Number(savedRating));
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -106,7 +106,7 @@ export default function MovieDetailsCard({
   };
 
   const handleSaveRating = () => {
-    localStorage.setItem(`${movieDetails.id}`, rating.toString());
+    localStorage.setItem(`film-${movieDetails.id}`, rating.toString());
     close();
   };
 

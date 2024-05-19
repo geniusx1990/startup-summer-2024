@@ -35,7 +35,7 @@ export default function MovieCard({
 
   const filmGenresNames = getGenresNames(film.genre_ids || [], genres);
 
-  const savedRating = localStorage.getItem(`${film.id}`);
+  const savedRating = localStorage.getItem(`film-${film.id}`);
 
   const [rating, setRating] = useState(Number(savedRating));
 
@@ -47,8 +47,12 @@ export default function MovieCard({
   };
 
   const handleSaveRating = () => {
-    localStorage.setItem(`${film.id}`, rating.toString());
-    close();
+    localStorage.setItem(`film-${film.id}`, rating.toString());
+/*     film.rating = rating.toString()
+    const arr = JSON.parse(`${localStorage.getItem('cardsRated')}`);
+    arr.push(film)
+    localStorage.setItem('cardsRated', JSON.stringify(arr))
+ */    close();
   };
 
   const handleClose = () => {
