@@ -3,4 +3,5 @@ export const routes = {
   movies: "movies",
   genres: "genres",
   movie: "movie",
+  poster: "poster",
 };

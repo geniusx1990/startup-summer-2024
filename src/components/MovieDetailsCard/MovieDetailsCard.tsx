@@ -11,6 +11,7 @@ import { useDisclosure } from "@mantine/hooks";
 import RatingModal from "../RatingModal/RatingModal";
 import { getImgUrl } from "../../utils/getImage";
 import './style.css'
+import { proxyURL, routes } from "../../utils/api";
 type DataType = string | number;
 
 function fillData(arr: DataType[], color: string) {
@@ -146,7 +147,7 @@ export default function MovieDetailsCard({
         >
           <Image
             className="poster-details"
-            src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
+            src={`${proxyURL}${routes.poster}?poster_path=${movieDetails.poster_path}`}
             fallbackSrc={getImgUrl("noposterBig.png")}
             height={352}
             width={250}

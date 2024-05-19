@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RatingModal from "../RatingModal/RatingModal";
 import { getImgUrl } from "../../utils/getImage";
+import { proxyURL, routes } from "../../utils/api";
 
 export default function MovieCard({
   film,
@@ -62,8 +63,6 @@ export default function MovieCard({
   function displayBlock(savedRating: string | null): string {
     return Number(savedRating) > 0 ? "block" : "none";
   }
-
-  console.log(savedRating);
   return (
     <>
       <Card
@@ -81,7 +80,7 @@ export default function MovieCard({
           align="flex-starts"
         >
           <Image
-            src={`https://image.tmdb.org/t/p/original/${film.poster_path}`}
+            src={`${proxyURL}${routes.poster}?poster_path=${film.poster_path}`}
             height={170}
             width={119}
             fallbackSrc={getImgUrl("noposterBig.png")}

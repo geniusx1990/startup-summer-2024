@@ -16,6 +16,7 @@ export interface Movie {
   release_date: string;
   title: string;
   video: boolean;
+  videos: [];
   vote_average: number;
   vote_count: number;
 }
