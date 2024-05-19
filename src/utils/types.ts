@@ -19,6 +19,7 @@ export interface Movie {
   videos: [];
   vote_average: number;
   vote_count: number;
+  rating: string
 }
 
 export interface Rating {

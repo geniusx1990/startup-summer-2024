@@ -1,0 +1,10 @@
+:root {
+  --padding-top: 40px;
+  --padding-right: 90px;
+  --padding-left: 90px;
+}
+
+.container-rated {
+  padding: var(--padding-top) var(--padding-right) var(--padding-bottom)
+    var(--padding-left);
+}

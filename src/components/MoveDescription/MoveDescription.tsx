@@ -51,7 +51,7 @@ export default function MoveDescription({
               {item.logo_path ? (
                 <img
                   className="company-logo"
-                  src={`https://image.tmdb.org/t/p/original/${item.logo_path}`}
+                  src={`${proxyURL}${routes.poster}?poster_path=${item.logo_path}`}
                   alt={item.name}
                   border-radius={"50%"}
                 />

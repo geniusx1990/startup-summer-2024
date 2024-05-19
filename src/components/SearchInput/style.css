@@ -1,0 +1,12 @@
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  border: 8px solid white;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.input-input {
+  border: none;
+  margin-right: 100px;
+}
