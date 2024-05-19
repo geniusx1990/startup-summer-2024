@@ -1,11 +1,11 @@
 import "./style.css";
 import { proxyURL, routes } from "../../utils/api";
 import { Genre, Movie, UserInputFilter } from "../../utils/types";
-import MoviesList from "../MoviesList/MoviesList";
-import FilterComponent from "../FilterComponent/FilterComponent";
 import { useState, useEffect } from "react";
-import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
 import { Container } from "@mantine/core";
+import FilterComponent from "../../components/FilterComponent/FilterComponent";
+import { LoaderComponent } from "../../components/LoaderComponent/LoaderComponent";
+import MoviesList from "../../components/MoviesList/MoviesList";
 
 export default function MoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
@@ -29,7 +29,6 @@ export default function MoviesPage() {
     localStorage.setItem("cardsRated", JSON.stringify([]));
   }
 
-  
   const moviesURL = `${proxyURL}${routes.movies}`;
   const genresURL = `${proxyURL}${routes.genres}`;
 

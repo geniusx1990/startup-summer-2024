@@ -1,11 +1,12 @@
 import { Container, Flex, Text } from "@mantine/core";
 import "./style.css";
-import { SearchInput } from "../SearchInput/SearchInput";
+import { SearchInput } from "../../components/SearchInput/SearchInput";
 import { useEffect, useState } from "react";
 import { Genre, Movie } from "../../utils/types";
 import { proxyURL, routes } from "../../utils/api";
-import MoviesList from "../MoviesList/MoviesList";
-import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
+import MoviesList from "../../components/MoviesList/MoviesList";
+import { LoaderComponent } from "../../components/LoaderComponent/LoaderComponent";
+import NoRatedFilmsBanner from "../../components/NoRatedFilmsBanner/NoRatedFilmsBanner";
 
 export default function RatedMoviesPage() {
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -32,7 +33,7 @@ export default function RatedMoviesPage() {
 
   return (
     <Container className="container-rated" size={"1440px"}>
-      <Flex justify={"space-between"}>
+      <Flex justify={"space-between"} pb={16}>
         <Text
           fw={700}
           style={{
@@ -55,6 +56,7 @@ export default function RatedMoviesPage() {
           currentPage={currentPage}
         />
       )}
+      <NoRatedFilmsBanner />
     </Container>
   );
 }

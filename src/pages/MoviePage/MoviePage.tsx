@@ -4,9 +4,9 @@ import { MovieDetails } from "../../utils/types";
 import { proxyURL, routes } from "../../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { Breadcrumbs, Anchor, Container } from "@mantine/core";
-import MovieDetailsCard from "../MovieDetailsCard/MovieDetailsCard";
-import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
-import MoveDescription from "../MoveDescription/MoveDescription";
+import MovieDetailsCard from "../../components/MovieDetailsCard/MovieDetailsCard";
+import { LoaderComponent } from "../../components/LoaderComponent/LoaderComponent";
+import MoveDescription from "../../components/MoveDescription/MoveDescription";
 
 export default function MoviePage() {
   const { movie_id } = useParams();

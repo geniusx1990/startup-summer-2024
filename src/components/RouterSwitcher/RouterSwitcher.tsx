@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import NotFoundPage from "../NotFoundPage/NotFoundPage";
-import RatedMoviesPage from "../RatedMoviesPage/RatedMoviesPage";
-import MoviesPage from "../MoviesPage/MoviesPage";
-import MoviePage from "../MoviePage/MoviePage";
+import RatedMoviesPage from "../../pages/RatedMoviesPage/RatedMoviesPage";
+import MoviePage from "../../pages/MoviePage/MoviePage";
+import MoviesPage from "../../pages/MoviesPage/MoviesPage";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 
 const RouterSwitcher = () => {
   return (

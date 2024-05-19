@@ -1,8 +1,8 @@
 import { getImgUrl } from "../../utils/getImage";
 import { useNavigate } from 'react-router-dom';
-import ButtonCustom from "../ButtonCustom/ButtonCustom";
 import "./style.css";
 import { Container } from "@mantine/core";
+import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
 export default function NotFoundPage() {
   const navigate = useNavigate();
   const handleButtonClick = () => {
