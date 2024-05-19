@@ -2,9 +2,11 @@ import "./style.css";
 import { Genre, Movie } from "../../utils/types";
 import { Card, Flex, Group, Image, Text } from "@mantine/core";
 import {
+  displayBlock,
   fillGenresArray,
   filmReleaseDate,
   formatNumber,
+  getValueById,
   voteAverateToFixed,
 } from "../../utils/functions";
 import { getStarImage } from "../../utils/getStarImage";
@@ -34,39 +36,41 @@ export default function MovieCard({
   };
 
   const filmGenresNames = getGenresNames(film.genre_ids || [], genres);
+  const savedRatingArray = JSON.parse(`${localStorage.getItem("cardsRated")}`);
 
-  const savedRating = localStorage.getItem(`film-${film.id}`);
+  const savedRating = getValueById(savedRatingArray, film.id);
 
-  const [rating, setRating] = useState(Number(savedRating));
+  const [rating, setRating] = useState(savedRating);
 
   const [opened, { open, close }] = useDisclosure(false);
+
   const handleRemoveRating = () => {
-    localStorage.removeItem(`${film.id}`);
+    const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
+    const updatedArr = arr.filter((movie) => movie.id !== film.id);
+    localStorage.setItem("cardsRated", JSON.stringify(updatedArr));
+
     setRating(0);
     close();
   };
 
   const handleSaveRating = () => {
-    localStorage.setItem(`film-${film.id}`, rating.toString());
-/*     film.rating = rating.toString()
-    const arr = JSON.parse(`${localStorage.getItem('cardsRated')}`);
-    arr.push(film)
-    localStorage.setItem('cardsRated', JSON.stringify(arr))
- */    close();
+    const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
+    const existingFilmIndex = arr.findIndex((item) => item.id === film.id);
+    if (existingFilmIndex !== -1) {
+      arr[existingFilmIndex].rating = rating;
+    } else {
+      film.rating = rating;
+      arr.push(film);
+    }
+    localStorage.setItem("cardsRated", JSON.stringify(arr));
+    close();
   };
 
   const handleClose = () => {
-    if (localStorage.getItem(`${film.id}`) === null) {
-      setRating(0);
-      close();
-    } else {
-      close();
-    }
+    setRating(savedRating);
+    close();
   };
 
-  function displayBlock(savedRating: string | null): string {
-    return Number(savedRating) > 0 ? "block" : "none";
-  }
   return (
     <>
       <Card
@@ -176,7 +180,7 @@ export default function MovieCard({
             style={{ flexWrap: "nowrap" }}
           >
             <img
-              src={getStarImage(savedRating?.toString())}
+              src={getStarImage(savedRating)}
               alt="star"
               width={"28.px"}
               height={"28px"}

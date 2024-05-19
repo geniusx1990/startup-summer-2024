@@ -1,3 +1,5 @@
+import { Movie } from "./types";
+
 export function fillGenresArray(genres: string[]): string {
   if (!genres || genres.length === 0) {
     return "";
@@ -38,4 +40,13 @@ export function voteAverateToFixed(vote: number) {
     return "";
   }
   return vote.toFixed(1).toString();
+}
+
+export function displayBlock(savedRating: number): string {
+  return savedRating > 0 ? "block" : "none";
+}
+
+export function getValueById(movies: Movie[], id: number) {
+  const movie = movies.find((movie) => movie.id === id);
+  return movie ? movie.rating : 0;
 }

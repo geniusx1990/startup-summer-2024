@@ -1,16 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card, Flex, Group, Text, Image } from "@mantine/core";
-import { Genre, MovieDetails } from "../../utils/types";
+import { Genre, Movie, MovieDetails } from "../../utils/types";
 import { getStarImage } from "../../utils/getStarImage";
 import {
+  displayBlock,
   filmReleaseDate,
   formatNumber,
+  getValueById,
   voteAverateToFixed,
 } from "../../utils/functions";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import RatingModal from "../RatingModal/RatingModal";
 import { getImgUrl } from "../../utils/getImage";
-import './style.css'
+import "./style.css";
 import { proxyURL, routes } from "../../utils/api";
 type DataType = string | number;
 
@@ -88,6 +91,7 @@ const defaultMovieDetails: MovieDetails = {
   runtime: 0,
   vote_average: 0,
   vote_count: 0,
+  rating: 0,
 };
 
 export default function MovieDetailsCard({
@@ -95,28 +99,36 @@ export default function MovieDetailsCard({
 }: {
   movieDetails?: MovieDetails;
 }) {
-  const savedRating = localStorage.getItem(`film-${movieDetails.id}`);
-  const [rating, setRating] = useState(Number(savedRating));
+  const savedRatingArray = JSON.parse(`${localStorage.getItem("cardsRated")}`);
+  const savedRating = getValueById(savedRatingArray, movieDetails.id);
+
+  const [rating, setRating] = useState(savedRating);
   const [opened, { open, close }] = useDisclosure(false);
 
   const handleRemoveRating = () => {
-    localStorage.removeItem(`${movieDetails.id}`);
+    const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
+    const updatedArr = arr.filter((movie) => movie.id !== movieDetails.id);
+    localStorage.setItem("cardsRated", JSON.stringify(updatedArr));
+
     setRating(0);
     close();
   };
 
   const handleSaveRating = () => {
-    localStorage.setItem(`film-${movieDetails.id}`, rating.toString());
-    close();
-  };
+    const arr = JSON.parse(`${localStorage.getItem("cardsRated")}`);
+    const existingFilmIndex = arr.findIndex((item: any) => item.id === movieDetails.id);
+    if (existingFilmIndex !== -1) {
+      arr[existingFilmIndex].rating = rating;
+    } else {
+      movieDetails.rating = rating;
+      arr.push(movieDetails);
+    }
+    localStorage.setItem("cardsRated", JSON.stringify(arr));
+    close();  };
 
   const handleClose = () => {
-    if (localStorage.getItem(`${movieDetails.id}`) === null) {
-      setRating(0);
-      close();
-    } else {
-      close();
-    }
+    setRating(savedRating);
+    close();
   };
 
   const titlesArray = [
@@ -137,9 +149,14 @@ export default function MovieDetailsCard({
 
   return (
     <>
-      <Card p={24} radius={12} mt={20} className="movie-details-card" /* h={"400px"} */>
+      <Card
+        p={24}
+        radius={12}
+        mt={20}
+        className="movie-details-card" /* h={"400px"} */
+      >
         <Group
-        className=""
+          className=""
           justify="space-between"
           gap={16}
           style={{ flexWrap: "nowrap" }}
@@ -199,7 +216,7 @@ export default function MovieDetailsCard({
             style={{ flexWrap: "nowrap" }}
           >
             <img
-              src={getStarImage(savedRating?.toString())}
+              src={getStarImage(savedRating)}
               alt="star"
               width={"28px"}
               height={"28px"}
@@ -208,7 +225,9 @@ export default function MovieDetailsCard({
                 open();
               }}
             />
-            <Text>{savedRating}</Text>
+            <Text style={{ display: displayBlock(savedRating) }}>
+              {savedRating}
+            </Text>
           </Group>
         </Group>
       </Card>

@@ -24,6 +24,12 @@ export default function MoviesPage() {
     setFilterData(newFilterData);
   };
 
+  const storedCardsRated = localStorage.getItem("cardsRated");
+  if (!storedCardsRated) {
+    localStorage.setItem("cardsRated", JSON.stringify([]));
+  }
+
+  
   const moviesURL = `${proxyURL}${routes.movies}`;
   const genresURL = `${proxyURL}${routes.genres}`;
 
@@ -62,6 +68,7 @@ export default function MoviesPage() {
   }, [filterData, currentPage]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(genresURL)
       .then((response) => response.json())
       .then((data) => {

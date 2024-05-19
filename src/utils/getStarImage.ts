@@ -1,11 +1,11 @@
-export function getStarImage(value?: string | null) {
+export function getStarImage(value?: string | number) {
   let color;
   const colorGrey: string = "#D5D6DC";
   const colorPurple: string = "#9854F6";
 
   if (value === "yellow") {
     color = "#FAB005";
-  } else if (value === undefined) {
+  } else if (value === 0) {
     color = colorGrey;
   } else {
     color = colorPurple;
