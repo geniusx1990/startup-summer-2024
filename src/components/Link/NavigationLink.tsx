@@ -16,6 +16,10 @@ export default function NavigationLink({
 
   const isActive = location.pathname === `/${route}`;
 
+  function stylesForNavlink(isActive: boolean) {
+    if (isActive) return 700;
+  }
+
   return (
     <NavLink
       className="link-name"
@@ -23,6 +27,7 @@ export default function NavigationLink({
       label={labelName}
       active={isActive}
       color="#9854F6"
+      fw={stylesForNavlink(isActive)}
     />
   );
 }

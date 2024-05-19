@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import RatingModal from "../RatingModal/RatingModal";
 import { getImgUrl } from "../../utils/getImage";
-
+import './style.css'
 type DataType = string | number;
 
 function fillData(arr: DataType[], color: string) {
@@ -136,14 +136,16 @@ export default function MovieDetailsCard({
 
   return (
     <>
-      <Card p={24} radius={12} mt={20} h={"400px"}>
+      <Card p={24} radius={12} mt={20} className="movie-details-card" /* h={"400px"} */>
         <Group
+        className=""
           justify="space-between"
           gap={16}
           style={{ flexWrap: "nowrap" }}
           align="flex-start"
         >
           <Image
+            className="poster-details"
             src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
             fallbackSrc={getImgUrl("noposterBig.png")}
             height={352}

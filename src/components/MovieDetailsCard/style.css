@@ -1,0 +1,75 @@
+.movie-details-card {
+  height: 400px;
+}
+
+@media (max-width: 320px) {
+  .movie-details-card {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .movie-card-content {
+    gap: 5;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .movie-card-content {
+    font-size: 10px;
+  }
+  .movie-details-card .mantine-Text-root {
+    font-size: 14px;
+  }
+
+  .movie-details-card .mantine-Group-root {
+    flex-wrap: nowrap;
+  }
+}
+
+/* @media (max-width: 1200px) {
+  :root {
+    --padding-right: 40px;
+    --padding-bottom: 40px;
+    --padding-left: 40px;
+  }
+
+  .poster-details {
+    height: 100%;
+    width: 200px;
+  }
+
+  .movie-card-content {
+    flex-wrap: wrap;
+  }
+
+  .movie-details-card .mantine-Text-root {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1040px) {
+  .movie-details-card .mantine-Text-root {
+    font-size: 12px;
+  }
+  .movie-details-card {
+    height: 350px;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 986) {
+    .movie-details-card .mantine-Text-root {
+      font-size: 12px;
+    }
+    .movie-details-card {
+      height: auto;
+      flex-direction: column;
+    }
+
+    .poster-details {
+        height: 100%;
+        width: 200px;
+      }
+
+  }
+
+ */

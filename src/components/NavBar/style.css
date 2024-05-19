@@ -2,3 +2,13 @@
     background-color: #f2ebf9;
     padding: 24px;
   }
+
+  .close-button {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .close-button {
+      display: block;
+    }
+  }

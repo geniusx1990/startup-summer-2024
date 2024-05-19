@@ -51,7 +51,7 @@ export default function FilterComponent({
         />
         <CustomSelectComponent
           arrayInput={yearsValues}
-          label="Select release year"
+          label="Release year"
           placeholder="Release year"
           onChange={(newValue) => handleChange("selectedYears", newValue)}
         />

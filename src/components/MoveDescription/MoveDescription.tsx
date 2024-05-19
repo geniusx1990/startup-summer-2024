@@ -41,7 +41,7 @@ export default function MoveDescription({
   }
   function companies(arr: ProductionCompany[]) {
     if (!arr) {
-      return []
+      return [];
     }
     return (
       <Flex mt={16} direction={"column"} gap={12}>
@@ -64,6 +64,7 @@ export default function MoveDescription({
               )}
             </div>
             <Text
+              className="production-item"
               ff={"Inter"}
               fw={700}
               style={{

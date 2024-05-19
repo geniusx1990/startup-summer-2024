@@ -59,11 +59,18 @@ export default function MovieCard({
     }
   };
 
+  function displayBlock(savedRating: string | null): string {
+    return Number(savedRating) > 0 ? "block" : "none";
+  }
+
+  console.log(savedRating);
   return (
     <>
       <Card
         radius={12}
-        style={{ width: "482px" }}
+        className="movie-card"
+        w="100%"
+        maw={{ xs: "482px", base: "482px" }}
         p={24}
         onClick={handleCardClick}
       >
@@ -108,8 +115,8 @@ export default function MovieCard({
                 <Image
                   src={getStarImage("yellow")}
                   alt="star"
-                  width={"23.3px"}
-                  height={"23.3px"}
+                  width={"28px"}
+                  height={"28px"}
                 />
                 <Text
                   fw={600}
@@ -168,14 +175,16 @@ export default function MovieCard({
             <img
               src={getStarImage(savedRating?.toString())}
               alt="star"
-              width={"23.3px"}
-              height={"23.3px"}
+              width={"28.px"}
+              height={"28px"}
               onClick={(e) => {
                 e.stopPropagation();
                 open();
               }}
             />
-            <Text>{savedRating}</Text>
+            <Text style={{ display: displayBlock(savedRating) }}>
+              {savedRating}
+            </Text>
           </Group>
         </Group>
       </Card>

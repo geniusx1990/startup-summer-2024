@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { MovieDetails } from "../../utils/types";
 import { proxyURL, routes } from "../../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
-import { Breadcrumbs, Anchor } from "@mantine/core";
+import { Breadcrumbs, Anchor, Container } from "@mantine/core";
 import MovieDetailsCard from "../MovieDetailsCard/MovieDetailsCard";
 import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
 import MoveDescription from "../MoveDescription/MoveDescription";
@@ -42,18 +42,16 @@ export default function MoviePage() {
   }, []);
 
   return (
-    <>
-      <div className="movie-container-details">
-        <Breadcrumbs className="breadcrumbs">{items}</Breadcrumbs>
-        {isLoading ? (
-          <LoaderComponent />
-        ) : (
-          <>
-            <MovieDetailsCard movieDetails={movieDetails} />
-            <MoveDescription movieDetails={movieDetails} />
-          </>
-        )}
-      </div>
-    </>
+    <Container className="movie-container-details">
+      <Breadcrumbs className="breadcrumbs">{items}</Breadcrumbs>
+      {isLoading ? (
+        <LoaderComponent />
+      ) : (
+        <>
+          <MovieDetailsCard movieDetails={movieDetails} />
+          <MoveDescription movieDetails={movieDetails} />
+        </>
+      )}
+    </Container>
   );
 }

@@ -5,6 +5,7 @@ import MoviesList from "../MoviesList/MoviesList";
 import FilterComponent from "../FilterComponent/FilterComponent";
 import { useState, useEffect } from "react";
 import { LoaderComponent } from "../LoaderComponent/LoaderComponent";
+import { Container } from "@mantine/core";
 
 export default function MoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
@@ -70,8 +71,8 @@ export default function MoviesPage() {
   }, []);
 
   return (
-    <div className="movies-container">
-      <h1 className="movies-container__title">Movies Page</h1>
+    <Container className="container" size={"1440px"}>
+      <h1 className="movies-container__title">Movies</h1>
       <FilterComponent genres={genres} onUpdateFilter={updateFilterData} />
       {isLoading ? (
         <LoaderComponent />
@@ -83,6 +84,6 @@ export default function MoviesPage() {
           currentPage={currentPage}
         />
       )}
-    </div>
+    </Container>
   );
 }

@@ -3,7 +3,7 @@ import "./style.css";
 import { Genre, Movie } from "../../utils/types";
 import MovieCard from "../MovieCard/MovieCard";
 import { useState } from "react";
-import { Pagination } from "@mantine/core";
+import { Pagination, SimpleGrid } from "@mantine/core";
 
 export default function MoviesList({
   films,
@@ -29,7 +29,9 @@ export default function MoviesList({
 
   return (
     <>
-      <div className="movies-list">{items}</div>
+      <SimpleGrid mt={24} cols={{ base: 1, sm: 1, lg: 2}}>
+        {items}
+      </SimpleGrid>
       <Pagination
         className="pagination"
         value={activePage}

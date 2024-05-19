@@ -11,6 +11,7 @@ export default function App() {
 
   return (
     <AppShell
+      header={{ height: 0 }}
       navbar={{
         width: 280,
         breakpoint: "sm",
@@ -18,9 +19,9 @@ export default function App() {
       }}
     >
       <Header toggle={toggle} opened={opened} />
-      <Navbar />
+      <Navbar toggle={toggle} />
 
-      <AppShell.Main className="main-content">
+      <AppShell.Main>
         <RouterSwitcher />
       </AppShell.Main>
     </AppShell>
