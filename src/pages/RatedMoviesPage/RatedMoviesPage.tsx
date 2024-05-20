@@ -22,14 +22,20 @@ export default function RatedMoviesPage() {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch(genresURL)
-      .then((response) => response.json())
-      .then((data) => {
-        setGenres(data as Genre[]);
-        setIsLoading(false);
-      });
+    if (films.length > 0) {
+      setIsLoading(true);
+      fetch(genresURL)
+        .then((response) => response.json())
+        .then((data) => {
+          setGenres(data as Genre[]);
+          setIsLoading(false);
+        });
+    }
   }, []);
+
+  if (films.length === 0) {
+    return <NoRatedFilmsBanner />;
+  }
 
   return (
     <Container className="container-rated" size={"1440px"}>
@@ -56,7 +62,6 @@ export default function RatedMoviesPage() {
           currentPage={currentPage}
         />
       )}
-      <NoRatedFilmsBanner />
     </Container>
   );
 }

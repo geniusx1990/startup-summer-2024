@@ -1,4 +1,4 @@
-import { Container, Image, Text } from "@mantine/core";
+import { Flex, Image, Text } from "@mantine/core";
 import { getImgUrl } from "../../utils/getImage";
 import ButtonCustom from "../ButtonCustom/ButtonCustom";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,13 @@ export default function NoRatedFilmsBanner() {
   };
 
   return (
-    <Container>
+    <Flex
+      className="empty-state"
+      direction="column"
+      align="center"
+      justify="center"
+      style={{ height: "100vh" }}
+    >
       <Image w={311.28} height={218.41} src={getImgUrl("no-rated-films.svg")} />
       <Text
         fw={600}
@@ -23,6 +29,6 @@ export default function NoRatedFilmsBanner() {
         labelName="Find movies"
         onClick={handleButtonClick}
       />
-    </Container>
+    </Flex>
   );
 }

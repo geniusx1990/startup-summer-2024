@@ -1,14 +1,13 @@
 import { getImgUrl } from "../../utils/getImage";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 import { Container } from "@mantine/core";
 import ButtonCustom from "../../components/ButtonCustom/ButtonCustom";
 export default function NotFoundPage() {
   const navigate = useNavigate();
   const handleButtonClick = () => {
-    navigate('/');
+    navigate("/");
   };
-
 
   return (
     <Container className="not-found">
@@ -21,7 +20,11 @@ export default function NotFoundPage() {
       <p className="not-found__message">
         We can’t find the page you are looking for
       </p>
-      <ButtonCustom className={'goHome'} labelName="Go Home" onClick={handleButtonClick}/>
+      <ButtonCustom
+        className={"goHome"}
+        labelName="Go Home"
+        onClick={handleButtonClick}
+      />
     </Container>
   );
 }
