@@ -33,6 +33,10 @@ export default function RatingModal({ film }: { film: Movie | MovieDetails }) {
   };
 
   const handleSaveRating = () => {
+    if (rating === 0) {
+      alert("Rating must be greater than zero to save.");
+      return;
+    }
     const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
     const existingFilmIndex = arr.findIndex((item) => item.id === film.id);
     if (existingFilmIndex !== -1) {
