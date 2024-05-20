@@ -12,6 +12,7 @@ export function SearchInput({
 
   return (
     <Group
+    pr={12}
       className="input-wrapper"
       style={{ width: 490, alignItems: "center" }}
     >
@@ -31,7 +32,8 @@ export function SearchInput({
       <Button
         variant="filled"
         color="#9854F6"
-        h={48}
+        h={32}
+        
         radius={8}
         onClick={() => onSearchTextChange(value)}
       >

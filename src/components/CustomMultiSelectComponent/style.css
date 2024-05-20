@@ -40,9 +40,6 @@
   border-radius: 8px;
 }
 
-.custom-input:focus {
-  border: 1px solid #9854f6;
-}
 
 .custom-wrapper:focus-within .custom-input {
   border: 1px solid #9854f6;

@@ -1,16 +1,9 @@
 .movies-container__title {
-  margin: 0;
   font-family: Inter;
   font-size: 32px;
   font-weight: 700;
   line-height: 44.8px;
 }
-
-/* .movies-container {
-  padding: 40px 90px 82px 90px;
-  margin: 0;
-}
- */
 
 :root {
   --padding-top: 40px;

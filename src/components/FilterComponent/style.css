@@ -1,11 +1,11 @@
-.filter-container {
+/* .filter-container {
   margin-top: 40px;
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
   gap: 16px;
   width: 100%;
-}
+} */
 
 .rainting-container {
   display: flex;

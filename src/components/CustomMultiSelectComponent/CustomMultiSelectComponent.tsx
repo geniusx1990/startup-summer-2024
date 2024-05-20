@@ -1,7 +1,6 @@
 import "./style.css";
 import { MultiSelect } from "@mantine/core";
-import { IconChevronDown } from "@tabler/icons-react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 interface ListItem {
   id: number;
@@ -12,6 +11,7 @@ interface SelectProps<T extends ListItem> {
   list: T[];
   placeholder: string;
   label: string;
+  rightSection?: ReactNode; 
   onChange: (value: string[]) => void;
 }
 
@@ -19,6 +19,7 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
   list,
   placeholder,
   label,
+  rightSection,
   onChange,
 }: SelectProps<T>) {
   const [value, setValue] = useState<string[]>([]);
@@ -47,14 +48,11 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
         dropdown: "custom-dropdown",
       }}
       radius={8}
-      rightSection={
-        <IconChevronDown style={{ width: 24, height: 24, color: "#ACADB9" }} />
-      }
+      rightSection={rightSection}
       label={label}
       data={combinedData}
       value={value}
       onChange={handleChange}
-      hidePickedOptions
       clearable
       comboboxProps={{
         dropdownPadding: 4,

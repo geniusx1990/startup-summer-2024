@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import "./style.css";
 import { ComboboxItem, Select } from "@mantine/core";
 import { OptionInterface } from "../../utils/types";
@@ -7,6 +7,7 @@ interface CustomSelectProps {
   label?: string;
   defaultValue?: OptionInterface;
   placeholder?: string;
+  rightSection?: ReactNode;
   arrayInput: OptionInterface[];
   onChange: (_value: string | null) => void;
 }
@@ -15,6 +16,7 @@ export default function CustomSelectComponent({
   placeholder,
   arrayInput,
   defaultValue,
+  rightSection,
   onChange,
 }: CustomSelectProps) {
   const [value, setValue] = useState<ComboboxItem | null>({
@@ -35,8 +37,10 @@ export default function CustomSelectComponent({
         input: "custom-input",
         wrapper: "custom-wrapper",
         section: "custom-section",
-        option: "custom-option"
+        option: "custom-option",
       }}
+      withCheckIcon={false}
+      rightSection={rightSection}
       label={label}
       placeholder={placeholder}
       onChange={handleChange}

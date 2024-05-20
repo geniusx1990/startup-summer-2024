@@ -6,6 +6,10 @@
     background-color: #9854f6;
     color: #ffffff;
   }
+
+  .custom-option:checked {
+    background-color: red;
+  }
     
 
 @media (max-width: 1200px) {
