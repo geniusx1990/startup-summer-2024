@@ -2,16 +2,12 @@ import "./style.css";
 import { Genre, Movie } from "../../utils/types";
 import { Card, Flex, Group, Image, Text } from "@mantine/core";
 import {
-  displayBlock,
   fillGenresArray,
   filmReleaseDate,
   formatNumber,
-  getValueById,
   voteAverateToFixed,
 } from "../../utils/functions";
 import { getStarImage } from "../../utils/getStarImage";
-import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RatingModal from "../RatingModal/RatingModal";
 import { getImgUrl } from "../../utils/getImage";
@@ -36,39 +32,8 @@ export default function MovieCard({
   };
 
   const filmGenresNames = getGenresNames(film.genre_ids || [], genres);
-  const savedRatingArray = JSON.parse(`${localStorage.getItem("cardsRated")}`);
-
-  const savedRating = getValueById(savedRatingArray, film.id);
-
-  const [rating, setRating] = useState(savedRating);
-
-  const [opened, { open, close }] = useDisclosure(false);
-
-  const handleRemoveRating = () => {
-    const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
-    const updatedArr = arr.filter((movie) => movie.id !== film.id);
-    localStorage.setItem("cardsRated", JSON.stringify(updatedArr));
-
-    setRating(0);
-    close();
-  };
-
-  const handleSaveRating = () => {
-    const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
-    const existingFilmIndex = arr.findIndex((item) => item.id === film.id);
-    if (existingFilmIndex !== -1) {
-      arr[existingFilmIndex].rating = rating;
-    } else {
-      film.rating = rating;
-      arr.push(film);
-    }
-    localStorage.setItem("cardsRated", JSON.stringify(arr));
-    close();
-  };
-
-  const handleClose = () => {
-    setRating(savedRating);
-    close();
+  const handleRatingClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
   };
 
   return (
@@ -173,37 +138,11 @@ export default function MovieCard({
               </Text>
             </Group>
           </Flex>
-          <Group
-            gap={4}
-            justify="flex-end"
-            align="flex-start"
-            style={{ flexWrap: "nowrap" }}
-          >
-            <img
-              src={getStarImage(savedRating)}
-              alt="star"
-              width={"28.px"}
-              height={"28px"}
-              onClick={(e) => {
-                e.stopPropagation();
-                open();
-              }}
-            />
-            <Text style={{ display: displayBlock(savedRating) }}>
-              {savedRating}
-            </Text>
-          </Group>
+          <div onClick={handleRatingClick}>
+            <RatingModal film={film} />
+          </div>
         </Group>
       </Card>
-      <RatingModal
-        film={film}
-        rating={rating}
-        setRating={setRating}
-        opened={opened}
-        onClose={handleClose}
-        handleSaveRating={handleSaveRating}
-        handleRemoveRating={handleRemoveRating}
-      />
     </>
   );
 }
