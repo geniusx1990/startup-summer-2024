@@ -111,70 +111,68 @@ export default function MovieDetailsCard({
   ];
 
   return (
-    <>
-      <Card
-        p={24}
-        radius={12}
-        mt={20}
-        className="movie-details-card" /* h={"400px"} */
+    <Card
+      p={24}
+      radius={12}
+      mt={20}
+      className="movie-details-card" /* h={"400px"} */
+    >
+      <Group
+        className=""
+        justify="space-between"
+        gap={16}
+        style={{ flexWrap: "nowrap" }}
+        align="flex-start"
       >
-        <Group
-          className=""
-          justify="space-between"
-          gap={16}
-          style={{ flexWrap: "nowrap" }}
-          align="flex-start"
+        <Image
+          className="poster-details"
+          src={`${proxyURL}${routes.poster}?poster_path=${movieDetails.poster_path}`}
+          fallbackSrc={getImgUrl("noposterBig.png")}
+          height={352}
+          width={250}
+          alt={movieDetails.original_title}
+        />
+        <Flex
+          direction="column"
+          justify={"space-between"}
+          h={"100%"}
+          w={"100%"}
         >
-          <Image
-            className="poster-details"
-            src={`${proxyURL}${routes.poster}?poster_path=${movieDetails.poster_path}`}
-            fallbackSrc={getImgUrl("noposterBig.png")}
-            height={352}
-            width={250}
-            alt={movieDetails.original_title}
-          />
-          <Flex
-            direction="column"
-            justify={"space-between"}
-            h={"100%"}
-            w={"100%"}
-          >
-            <Flex direction={"column"} gap={8}>
-              <Text
-                fw={600}
-                style={{
-                  fontSize: "20px",
-                  lineHeight: "24.2px",
-                  color: "#9854F6 ",
-                }}
-              >
-                {movieDetails.original_title}
+          <Flex direction={"column"} gap={8}>
+            <Text
+              fw={600}
+              style={{
+                fontSize: "20px",
+                lineHeight: "24.2px",
+                color: "#9854F6 ",
+              }}
+            >
+              {movieDetails.original_title}
+            </Text>
+            <Text
+              style={{
+                fontSize: "16px",
+                lineHeight: "19.36px",
+                color: "#7B7C88",
+              }}
+            >
+              {filmReleaseDate(movieDetails.release_date)}
+            </Text>
+            <Group justify="flex-start" gap={4}>
+              <Image width={"28px"} src={getStarImage("yellow")} />
+              <Text fw={600} style={{ fontSize: "16px" }}>
+                {voteAverateToFixed(movieDetails.vote_average)}
               </Text>
-              <Text
-                style={{
-                  fontSize: "16px",
-                  lineHeight: "19.36px",
-                  color: "#7B7C88",
-                }}
-              >
-                {filmReleaseDate(movieDetails.release_date)}
-              </Text>
-              <Group justify="flex-start" gap={4}>
-                <Image width={"28px"} src={getStarImage("yellow")} />
-                <Text fw={600} style={{ fontSize: "16px" }}>
-                  {voteAverateToFixed(movieDetails.vote_average)}
-                </Text>
-                <Text pl={4}>{formatNumber(movieDetails.vote_count)}</Text>
-              </Group>
-            </Flex>
-            <Group gap={8}>
-              {fillData(titlesArray, "#7B7C88")}
-              {fillData(dataArray, "#000000")}
+              <Text pl={4}>{formatNumber(movieDetails.vote_count)}</Text>
             </Group>
           </Flex>
-          <RatingModal film={movieDetails} />
-        </Group>
-      </Card>
-    </>
+          <Group gap={8}>
+            {fillData(titlesArray, "#7B7C88")}
+            {fillData(dataArray, "#000000")}
+          </Group>
+        </Flex>
+        <RatingModal film={movieDetails} />
+      </Group>
+    </Card>
   );
 }

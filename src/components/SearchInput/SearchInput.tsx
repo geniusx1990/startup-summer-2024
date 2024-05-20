@@ -1,39 +1,42 @@
-import { Button, Input } from "@mantine/core";
+import { Button, Group, Input } from "@mantine/core";
 import { SearchIcon } from "../SearchIcon/SearchIcon";
 import "./style.css";
+import { useState } from "react";
 
-export function SearchInput() {
+export function SearchInput({
+  onSearchTextChange,
+}: {
+  onSearchTextChange: (text: string) => void;
+}) {
+  const [value, setValue] = useState("");
+
   return (
-    <Input
-      classNames={{
-        wrapper: "input-wrapper",
-        input: "input-input",
-      }}
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        width: "100%",
-        alignItems: "center",
-      }}
-      w={490}
-      h={48}
-      radius={8}
-      placeholder="Search movie title"
-      leftSection={<SearchIcon />}
-      rightSection={
-        <Button
-          variant="filled"
-          color="#9854F6"
-          mr={4}
-          h={32}
-          w={88}
-          radius={8}
-          onClick={() => console.log("Search button clicked")}
-        >
-          Search
-        </Button>
-      }
-      rightSectionWidth={88}
-    />
+    <Group
+      className="input-wrapper"
+      style={{ width: 490, alignItems: "center" }}
+    >
+      <Input
+        value={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        classNames={{
+          input: "input-input",
+        }}
+        style={{
+          flexGrow: 1,
+        }}
+        radius={8}
+        placeholder="Search movie title"
+        leftSection={<SearchIcon />}
+      />
+      <Button
+        variant="filled"
+        color="#9854F6"
+        h={48}
+        radius={8}
+        onClick={() => onSearchTextChange(value)}
+      >
+        Search
+      </Button>
+    </Group>
   );
 }

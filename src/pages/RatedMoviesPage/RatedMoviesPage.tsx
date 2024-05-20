@@ -13,6 +13,8 @@ export default function RatedMoviesPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [films, setFilms] = useState<Movie[]>([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredFilms, setFilteredFilms] = useState<Movie[]>([]);
 
   const genresURL = `${proxyURL}${routes.genres}`;
 
@@ -33,6 +35,13 @@ export default function RatedMoviesPage() {
     }
   }, []);
 
+  useEffect(() => {
+    const filtered = films.filter((film) =>
+      film.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredFilms(filtered);
+  }, [searchText, films]);
+
   if (films.length === 0) {
     return <NoRatedFilmsBanner />;
   }
@@ -50,13 +59,13 @@ export default function RatedMoviesPage() {
         >
           Rated movies
         </Text>
-        <SearchInput />
+        <SearchInput onSearchTextChange={setSearchText} />
       </Flex>
       {isLoading ? (
         <LoaderComponent />
       ) : (
         <MoviesList
-          films={films}
+          films={filteredFilms}
           genres={genres}
           onChange={(activePage: number) => setCurrentPage(activePage)}
           currentPage={currentPage}
