@@ -7,21 +7,24 @@ import {
   Rating,
   Text,
 } from "@mantine/core";
-import { Movie, MovieDetails } from "../../utils/types";
+import { Genre, Movie, MovieDetails } from "../../utils/types";
 import { getStarImage } from "../../utils/getStarImage";
 import { useDisclosure } from "@mantine/hooks";
 import { displayBlock, getValueById } from "../../utils/functions";
 import { useState } from "react";
+
+function isMovieDetails(film: Movie | MovieDetails): film is MovieDetails {
+  return (film as MovieDetails).runtime !== undefined;
+}
 
 export default function RatingModal({ film }: { film: Movie | MovieDetails }) {
   const [opened, { open, close }] = useDisclosure(false);
   const savedRatingArray = JSON.parse(`${localStorage.getItem("cardsRated")}`);
   const savedRating = getValueById(savedRatingArray, film.id);
   const [rating, setRating] = useState(savedRating);
+
   const handleRemoveRating = () => {
-    const arr: (Movie | MovieDetails)[] = JSON.parse(
-      `${localStorage.getItem("cardsRated")}`
-    );
+    const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
     const updatedArr = arr.filter((movie) => movie.id !== film.id);
     localStorage.setItem("cardsRated", JSON.stringify(updatedArr));
 
@@ -30,15 +33,25 @@ export default function RatingModal({ film }: { film: Movie | MovieDetails }) {
   };
 
   const handleSaveRating = () => {
-    const arr: (Movie | MovieDetails)[] = JSON.parse(
-      `${localStorage.getItem("cardsRated")}`
-    );
+    const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
     const existingFilmIndex = arr.findIndex((item) => item.id === film.id);
     if (existingFilmIndex !== -1) {
       arr[existingFilmIndex].rating = rating;
     } else {
-      film.rating = rating;
-      arr.push(film);
+      const movie: Movie = {
+        id: film.id,
+        original_title: film.original_title,
+        poster_path: film.poster_path,
+        release_date: film.release_date,
+        vote_average: film.vote_average,
+        vote_count: film.vote_count,
+        genre_ids: isMovieDetails(film)
+          ? film.genres.map((genre: Genre) => genre.id)
+          : film.genre_ids,
+        rating: rating,
+      };
+
+      arr.push(movie);
     }
     localStorage.setItem("cardsRated", JSON.stringify(arr));
     close();

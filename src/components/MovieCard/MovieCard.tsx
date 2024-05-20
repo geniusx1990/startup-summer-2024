@@ -56,7 +56,7 @@ export default function MovieCard({
           height={170}
           width={119}
           fallbackSrc={getImgUrl("noposterBig.png")}
-          alt={film.title}
+          alt={film.original_title}
         />
         <Flex direction={"column"} justify={"space-between"} w={"100%"}>
           <Flex direction={"column"} gap={8}>

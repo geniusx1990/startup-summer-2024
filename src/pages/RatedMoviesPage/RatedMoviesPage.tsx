@@ -9,10 +9,10 @@ import { LoaderComponent } from "../../components/LoaderComponent/LoaderComponen
 import NoRatedFilmsBanner from "../../components/NoRatedFilmsBanner/NoRatedFilmsBanner";
 
 export default function RatedMoviesPage() {
+  const [films, setFilms] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [films, setFilms] = useState<Movie[]>([]);
   const [searchText, setSearchText] = useState("");
   const [filteredFilms, setFilteredFilms] = useState<Movie[]>([]);
 
@@ -24,7 +24,6 @@ export default function RatedMoviesPage() {
   }, []);
 
   useEffect(() => {
-    if (films.length > 0) {
       setIsLoading(true);
       fetch(genresURL)
         .then((response) => response.json())
@@ -32,12 +31,11 @@ export default function RatedMoviesPage() {
           setGenres(data as Genre[]);
           setIsLoading(false);
         });
-    }
   }, []);
 
   useEffect(() => {
     const filtered = films.filter((film) =>
-      film.title.toLowerCase().includes(searchText.toLowerCase())
+      film.original_title.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredFilms(filtered);
   }, [searchText, films]);

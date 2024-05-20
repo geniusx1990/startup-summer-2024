@@ -29,7 +29,7 @@ export default function MoviesList({
 
   return (
     <>
-      <SimpleGrid mt={24} cols={{ base: 1, sm: 1, lg: 2}}>
+      <SimpleGrid mt={24} cols={{ base: 1, sm: 1, lg: 2 }}>
         {items}
       </SimpleGrid>
       <Pagination

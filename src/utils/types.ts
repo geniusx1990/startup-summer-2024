@@ -4,22 +4,14 @@ export interface Genre {
 }
 
 export interface Movie {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: [] | undefined;
   id: number;
-  original_language: string;
   original_title: string;
-  overview: string;
-  popularity: number;
   poster_path: string;
   release_date: string;
-  title: string;
-  video: boolean;
-  videos: [];
   vote_average: number;
   vote_count: number;
-  rating: number
+  genre_ids: number[];
+  rating: number;
 }
 
 export interface Rating {
@@ -48,19 +40,19 @@ export interface ProductionCompany {
 }
 
 export interface MovieDetails {
-  budget: number;
-  genres: Genre[];
   id: number;
   original_title: string;
-  overview: string;
   poster_path: string;
-  production_companies: ProductionCompany[];
   release_date: string;
-  revenue: number;
-  runtime: number;
   vote_average: number;
   vote_count: number;
-  rating: number
+  runtime: number;
+  budget: number;
+  revenue: number;
+  genres: Genre[];
+  overview: string;
+  production_companies: ProductionCompany[];
+  rating: number;
 }
 
 export interface Video {
