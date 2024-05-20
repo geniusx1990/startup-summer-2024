@@ -2,7 +2,7 @@ import { Flex, Image, Text } from "@mantine/core";
 import { getImgUrl } from "../../utils/getImage";
 import ButtonCustom from "../ButtonCustom/ButtonCustom";
 import { useNavigate } from "react-router-dom";
-
+import './style.css';
 export default function NoRatedFilmsBanner() {
   const navigate = useNavigate();
   const handleButtonClick = () => {
@@ -19,6 +19,7 @@ export default function NoRatedFilmsBanner() {
     >
       <Image w={311.28} height={218.41} src={getImgUrl("no-rated-films.svg")} />
       <Text
+      mt={53}
         fw={600}
         style={{ fontSize: "20px", fontFamily: "Inter", lineHeight: "24.2px" }}
       >
