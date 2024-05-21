@@ -6,8 +6,8 @@ import { Container } from "@mantine/core";
 import FilterComponent from "../../components/FilterComponent/FilterComponent";
 import { LoaderComponent } from "../../components/LoaderComponent/LoaderComponent";
 import MoviesList from "../../components/MoviesList/MoviesList";
-import { Text } from "@mantine/core";
 import EmptyStateMainPage from "../../components/EmptyStateMainPage/EmptyStateMainPage";
+import PageHeaderTitle from "../../components/PageHeaderTitle/PageHeaderTitle";
 
 export default function MoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
@@ -80,9 +80,7 @@ export default function MoviesPage() {
 
   return (
     <Container className="container" size={"1440px"}>
-      <Text mb={40} className="movies-container__title">
-        Movies
-      </Text>
+      <PageHeaderTitle textTitle={'Movies'}/>
       <FilterComponent genres={genres} onUpdateFilter={updateFilterData} />
       {isLoading ? (
         <LoaderComponent />

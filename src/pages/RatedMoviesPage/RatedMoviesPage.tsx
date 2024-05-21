@@ -1,4 +1,4 @@
-import { Container, Flex, Text } from "@mantine/core";
+import { Container, Flex } from "@mantine/core";
 import "./style.css";
 import { SearchInput } from "../../components/SearchInput/SearchInput";
 import { useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import { proxyURL, routes } from "../../utils/api";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import { LoaderComponent } from "../../components/LoaderComponent/LoaderComponent";
 import NoRatedFilmsBanner from "../../components/NoRatedFilmsBanner/NoRatedFilmsBanner";
+import PageHeaderTitle from "../../components/PageHeaderTitle/PageHeaderTitle";
 
 export default function RatedMoviesPage() {
   const [films, setFilms] = useState<Movie[]>([]);
@@ -24,13 +25,13 @@ export default function RatedMoviesPage() {
   }, []);
 
   useEffect(() => {
-      setIsLoading(true);
-      fetch(genresURL)
-        .then((response) => response.json())
-        .then((data) => {
-          setGenres(data as Genre[]);
-          setIsLoading(false);
-        });
+    setIsLoading(true);
+    fetch(genresURL)
+      .then((response) => response.json())
+      .then((data) => {
+        setGenres(data as Genre[]);
+        setIsLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -47,16 +48,7 @@ export default function RatedMoviesPage() {
   return (
     <Container className="container-rated" size={"1440px"}>
       <Flex justify={"space-between"} pb={16}>
-        <Text
-          fw={700}
-          style={{
-            fontSize: "32px",
-            fontFamily: "Inter",
-            lineHeight: "44.8px",
-          }}
-        >
-          Rated movies
-        </Text>
+        <PageHeaderTitle textTitle="Rated movies" />
         <SearchInput onSearchTextChange={setSearchText} />
       </Flex>
       {isLoading ? (

@@ -24,6 +24,7 @@ export default function FilterComponent({
     sortBy: null,
   });
 
+
   function handleChange(
     inputIdentifier: keyof UserInputFilter,
     newValue:
@@ -41,6 +42,23 @@ export default function FilterComponent({
     onUpdateFilter(newFilter);
   }
 
+  const handleButtonClick = () => {
+    setFilterData({
+      selectedGenres: [],
+      selectedYears: null,
+      ratingFrom: null,
+      ratingTo: null,
+      sortBy: null,
+    });
+    onUpdateFilter({
+      selectedGenres: [],
+      selectedYears: null,
+      ratingFrom: null,
+      ratingTo: null,
+      sortBy: null,
+    });
+  };
+
   const isDisabled =
     filterData.selectedGenres.length ||
     filterData.selectedYears ||
@@ -50,7 +68,7 @@ export default function FilterComponent({
 
   return (
     <>
-      <Grid gutter={16} my={{ base: 5, xs: 15, md: 24 }}>
+      <Grid gutter={16} my={{ base: 5, xs: 15, md: 24 }} mt={40}>
         <Grid.Col span={{ lg: 3.6, xs: 6, base: 12 }}>
           <CustomMultiSelectComponent
             list={genres}
@@ -104,22 +122,7 @@ export default function FilterComponent({
               variant="transparent"
               style={{ padding: 0, margin: 0 }}
               disabled={!isDisabled}
-              onClick={() => {
-                setFilterData({
-                  selectedGenres: [],
-                  selectedYears: null,
-                  ratingFrom: null,
-                  ratingTo: null,
-                  sortBy: null,
-                });
-                onUpdateFilter({
-                  selectedGenres: [],
-                  selectedYears: null,
-                  ratingFrom: null,
-                  ratingTo: null,
-                  sortBy: null,
-                });
-              }}
+              onClick={handleButtonClick}
             >
               Reset filters
             </Button>
