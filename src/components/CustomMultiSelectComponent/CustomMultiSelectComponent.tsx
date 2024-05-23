@@ -12,7 +12,8 @@ interface SelectProps<T extends ListItem> {
   list: T[];
   placeholder: string;
   label: string;
-  rightSection?: ReactNode; 
+  rightSection?: ReactNode;
+  value: string[] | undefined;
   onChange: (value: string[]) => void;
 }
 
@@ -20,10 +21,10 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
   list,
   placeholder,
   label,
+  value,
   rightSection,
   onChange,
 }: SelectProps<T>) {
-  const [value, setValue] = useState<string[]>([]);
   const [dropdownOpened, setDropdownOpened] = useState<boolean>(false);
 
   const combinedData = list.map((element) => ({
@@ -32,7 +33,6 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
   }));
 
   const handleChange = (newValue: string[]) => {
-    setValue(newValue);
     onChange(newValue);
   };
 
@@ -44,16 +44,15 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
     transition: "transform 0.3s ease, color 0.3s ease",
   };
 
-  
   const RightSectionWithStyles = rightSection
-  ? React.cloneElement(rightSection as React.ReactElement, { style: rightSectionStyles })
-  : null;
+    ? React.cloneElement(rightSection as React.ReactElement, {
+        style: rightSectionStyles,
+      })
+    : null;
 
-  
   return (
     <MultiSelect
       className="multi-select"
-      hiddenInputValuesDivider='*'
       placeholder={placeholder}
       classNames={{
         label: "custom-label",
@@ -65,12 +64,9 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
         dropdown: "custom-dropdown",
       }}
       styles={{
-        pill: { 
-          backgroundColor: 'red',
-    
-
+        pill: {
+          backgroundColor: "red",
         },
-        // Другие стили...
       }}
       onDropdownOpen={() => setDropdownOpened(true)}
       onDropdownClose={() => setDropdownOpened(false)}

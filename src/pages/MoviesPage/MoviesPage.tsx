@@ -41,18 +41,18 @@ export default function MoviesPage() {
       params.append("with_genres", filterData.selectedGenres.join(","));
     }
     if (filterData.selectedYears !== null) {
-      params.append("primary_release_year", filterData.selectedYears);
+      params.append("primary_release_year", filterData.selectedYears.value);
     }
 
     if (filterData.ratingFrom !== null) {
-      params.append("vote_average.gte", filterData.ratingFrom);
+      params.append("vote_average.gte", filterData.ratingFrom.value);
     }
     if (filterData.ratingTo !== null) {
-      params.append("vote_average.lte", filterData.ratingTo);
+      params.append("vote_average.lte", filterData.ratingTo.value);
     }
 
     if (filterData.sortBy !== null) {
-      params.append("sort_by", filterData.sortBy);
+      params.append("sort_by", filterData.sortBy.value);
     } else {
       params.append("sort_by", "popularity.desc");
     }
@@ -60,6 +60,7 @@ export default function MoviesPage() {
 
     const urlWithParams = `${moviesURL}?${params}&language=en-US`;
 
+    console.log(urlWithParams)
     fetch(urlWithParams)
       .then((response) => response.json())
       .then((data) => {
@@ -80,7 +81,7 @@ export default function MoviesPage() {
 
   return (
     <Container className="container" size={"1440px"}>
-      <PageHeaderTitle textTitle={'Movies'}/>
+      <PageHeaderTitle textTitle={"Movies"} />
       <FilterComponent genres={genres} onUpdateFilter={updateFilterData} />
       {isLoading ? (
         <LoaderComponent />

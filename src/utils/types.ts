@@ -21,10 +21,10 @@ export interface Rating {
 
 export interface UserInputFilter {
   selectedGenres: string[];
-  selectedYears: string | null;
-  ratingFrom: string | null;
-  ratingTo: string | null;
-  sortBy: string | null;
+  selectedYears: OptionInterface | null;
+  ratingFrom: OptionInterface | null;
+  ratingTo: OptionInterface | null;
+  sortBy: OptionInterface | null;
 }
 
 export interface OptionInterface {

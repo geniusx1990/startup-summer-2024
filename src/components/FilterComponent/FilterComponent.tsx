@@ -21,13 +21,14 @@ export default function FilterComponent({
     selectedYears: null,
     ratingFrom: null,
     ratingTo: null,
-    sortBy: null,
+    sortBy: { label: "Most Popular", value: "popularity.desc" },
   });
 
   function handleChange(
     inputIdentifier: keyof UserInputFilter,
     newValue:
       | string[]
+      | UserInputFilter["selectedYears"]
       | UserInputFilter["ratingFrom"]
       | UserInputFilter["ratingTo"]
       | UserInputFilter["sortBy"]
@@ -41,13 +42,14 @@ export default function FilterComponent({
     onUpdateFilter(newFilter);
   }
 
+  console.log(filterData, filterData);
   const handleButtonClick = () => {
     setFilterData({
       selectedGenres: [],
       selectedYears: null,
       ratingFrom: null,
       ratingTo: null,
-      sortBy: null,
+      sortBy: { label: "Most Popular", value: "popularity.desc" },
     });
     onUpdateFilter({
       selectedGenres: [],
@@ -73,6 +75,7 @@ export default function FilterComponent({
             list={genres}
             placeholder="Select genre"
             label="Genres"
+            value={filterData.selectedGenres}
             rightSection={
               <IconChevronDown
                 style={{ width: 24, height: 24, color: "#ACADB9" }}
@@ -83,6 +86,7 @@ export default function FilterComponent({
         </Grid.Col>
         <Grid.Col span={{ lg: 3.6, xs: 6, base: 12 }}>
           <CustomSelectComponent
+            test={filterData.selectedYears}
             rightSection={
               <IconChevronDown
                 style={{ width: 24, height: 24, color: "#ACADB9" }}
@@ -97,6 +101,7 @@ export default function FilterComponent({
         <Grid.Col span={{ lg: 3.6, xs: 6, base: 12 }}>
           <div className="rainting-container">
             <CustomSelectComponent
+              test={filterData.ratingFrom}
               arrayInput={ratingValues}
               label="Ratings"
               placeholder="From"
@@ -104,12 +109,14 @@ export default function FilterComponent({
             />
 
             <CustomSelectComponent
+              test={filterData.ratingTo}
               arrayInput={ratingValues}
               placeholder="To"
               onChange={(newValue) => handleChange("ratingTo", newValue)}
             />
           </div>
         </Grid.Col>
+
         <Grid.Col
           span={{ lg: 1, xs: 6, base: 12 }}
           style={{ display: "flex", alignItems: "flex-end" }}
@@ -130,10 +137,11 @@ export default function FilterComponent({
       </Grid>
       <div className="sort-container">
         <CustomSelectComponent
+          test={filterData.sortBy}
           rightSection={<IconChevronDown />}
           label="Sort by"
           arrayInput={sortByValues}
-          defaultValue={{ label: "Most Popular", value: "popularity.desc" }}
+          defaultValue={filterData.sortBy}
           onChange={(newValue) => handleChange("sortBy", newValue)}
         />
       </div>

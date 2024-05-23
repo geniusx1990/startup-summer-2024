@@ -6,11 +6,12 @@ import React from "react";
 
 interface CustomSelectProps {
   label?: string;
-  defaultValue?: OptionInterface;
+  defaultValue?: OptionInterface | null;
   placeholder?: string;
   rightSection?: ReactNode;
   arrayInput: OptionInterface[];
-  onChange: (_value: string | null) => void;
+  test?: OptionInterface | null;
+  onChange: (_value: ComboboxItem | null) => void;
 }
 export default function CustomSelectComponent({
   label,
@@ -18,14 +19,10 @@ export default function CustomSelectComponent({
   arrayInput,
   defaultValue,
   rightSection,
+  test,
   onChange,
 }: CustomSelectProps) {
   const [dropdownOpened, setDropdownOpened] = useState<boolean>(false);
-
-  const [value, setValue] = useState<ComboboxItem | null>({
-    label: "Most Popular",
-    value: "popularity.desc",
-  });
 
   const rightSectionStyles: CSSProperties = {
     width: 24,
@@ -35,16 +32,15 @@ export default function CustomSelectComponent({
     transition: "transform 0.3s ease, color 0.3s ease",
   };
 
-
   const handleChange = (_value: string | null, option: ComboboxItem | null) => {
-    setValue(option as OptionInterface);
-    onChange(_value);
+    onChange(option);
   };
 
   const RightSectionWithStyles = rightSection
-  ? React.cloneElement(rightSection as React.ReactElement, { style: rightSectionStyles })
-  : null;
-
+    ? React.cloneElement(rightSection as React.ReactElement, {
+        style: rightSectionStyles,
+      })
+    : null;
 
   return (
     <Select
@@ -64,9 +60,9 @@ export default function CustomSelectComponent({
       placeholder={placeholder}
       onChange={handleChange}
       data={arrayInput}
-      defaultValue={defaultValue?.label}
+      defaultValue={defaultValue?.value}
       radius={8}
-      value={value ? value.value : null}
+      value={test ? test.value : null}
       comboboxProps={{ transitionProps: { transition: "pop", duration: 200 } }}
     />
   );
