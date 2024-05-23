@@ -31,6 +31,10 @@
   line-height: 20px;
 }
 
+
+.custom-pil button {
+  display: none;
+}
 .custom-option:hover {
   background-color: #9854f6;
   color: #ffffff;

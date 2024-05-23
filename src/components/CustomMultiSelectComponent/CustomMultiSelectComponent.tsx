@@ -1,5 +1,6 @@
 import "./style.css";
 import { MultiSelect } from "@mantine/core";
+import React, { CSSProperties } from "react";
 import { ReactNode, useState } from "react";
 
 interface ListItem {
@@ -23,6 +24,7 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
   onChange,
 }: SelectProps<T>) {
   const [value, setValue] = useState<string[]>([]);
+  const [dropdownOpened, setDropdownOpened] = useState<boolean>(false);
 
   const combinedData = list.map((element) => ({
     value: element.id.toString(),
@@ -34,9 +36,24 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
     onChange(newValue);
   };
 
+  const rightSectionStyles: CSSProperties = {
+    width: 24,
+    height: 24,
+    color: dropdownOpened ? "#9854F6" : "#ACADB9",
+    transform: `rotate(${dropdownOpened ? "180deg" : "0deg"})`,
+    transition: "transform 0.3s ease, color 0.3s ease",
+  };
+
+  
+  const RightSectionWithStyles = rightSection
+  ? React.cloneElement(rightSection as React.ReactElement, { style: rightSectionStyles })
+  : null;
+
+  
   return (
     <MultiSelect
       className="multi-select"
+      hiddenInputValuesDivider='*'
       placeholder={placeholder}
       classNames={{
         label: "custom-label",
@@ -47,8 +64,18 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
         option: "custom-option",
         dropdown: "custom-dropdown",
       }}
+      styles={{
+        pill: { 
+          backgroundColor: 'red',
+    
+
+        },
+        // Другие стили...
+      }}
+      onDropdownOpen={() => setDropdownOpened(true)}
+      onDropdownClose={() => setDropdownOpened(false)}
       radius={8}
-      rightSection={rightSection}
+      rightSection={RightSectionWithStyles}
       label={label}
       data={combinedData}
       value={value}

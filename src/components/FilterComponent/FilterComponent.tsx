@@ -24,7 +24,6 @@ export default function FilterComponent({
     sortBy: null,
   });
 
-
   function handleChange(
     inputIdentifier: keyof UserInputFilter,
     newValue:
@@ -131,11 +130,7 @@ export default function FilterComponent({
       </Grid>
       <div className="sort-container">
         <CustomSelectComponent
-          rightSection={
-            <IconChevronDown
-              style={{ width: 24, height: 24, color: "#ACADB9" }}
-            />
-          }
+          rightSection={<IconChevronDown />}
           label="Sort by"
           arrayInput={sortByValues}
           defaultValue={{ label: "Most Popular", value: "popularity.desc" }}
