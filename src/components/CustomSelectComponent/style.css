@@ -3,14 +3,24 @@
 }
 
 .custom-option:hover {
-    background-color: #9854f6;
-    color: #ffffff;
-  }
+  background-color: #9854f6;
+  color: #ffffff;
+}
 
-  .custom-option:checked {
-    background-color: red;
-  }
-    
+.custom-option:checked {
+  background-color: red;
+}
+
+.custom-input-select {
+  display: flex;
+  align-items: center;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  height: 42px;
+  padding: 11px 12px 11px 12px;
+}
 
 @media (max-width: 1200px) {
   .filter-select {

@@ -14,8 +14,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  height: 42px;
-  padding: 11px 12px 11px 12px;
+  padding: 9px 12px;
 }
 
 .custom-section {
@@ -31,7 +30,6 @@
   line-height: 20px;
 }
 
-
 .custom-pil button {
   display: none;
 }
@@ -43,7 +41,6 @@
 .custom-dropdown {
   border-radius: 8px;
 }
-
 
 .custom-wrapper:focus-within .custom-input {
   border: 1px solid #9854f6;

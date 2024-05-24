@@ -26,7 +26,6 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
   onChange,
 }: SelectProps<T>) {
   const [dropdownOpened, setDropdownOpened] = useState<boolean>(false);
-
   const combinedData = list?.map((element) => ({
     value: element.id.toString(),
     label: element.name,
@@ -63,11 +62,16 @@ export default function CustomMultiSelectComponent<T extends ListItem>({
         option: "custom-option",
         dropdown: "custom-dropdown",
       }}
-      styles={{
-/*         pill: {
+      styles={
+        
+        {
+           dropdown: { maxHeight: 200, overflowY: "auto" } 
+          /*         pill: {
           backgroundColor: "red",
         },
- */      }}
+ */
+        }
+      }
       onDropdownOpen={() => setDropdownOpened(true)}
       onDropdownClose={() => setDropdownOpened(false)}
       radius={8}

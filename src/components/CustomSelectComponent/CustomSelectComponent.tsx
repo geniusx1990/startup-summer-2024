@@ -47,7 +47,7 @@ export default function CustomSelectComponent({
       className="filter-select"
       classNames={{
         label: "custom-label",
-        input: "custom-input",
+        input: "custom-input-select",
         wrapper: "custom-wrapper",
         section: "custom-section",
         option: "custom-option",
