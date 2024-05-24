@@ -1,12 +1,14 @@
 import "./style.css";
 
 import { ratingValues, sortByValues, yearsValues } from "../../utils/constants";
-import { Genre, UserInputFilter } from "../../utils/types";
+import { Genre, OptionInterface, UserInputFilter } from "../../utils/types";
 import { IconChevronDown } from "@tabler/icons-react";
 import CustomMultiSelectComponent from "../CustomMultiSelectComponent/CustomMultiSelectComponent";
 import CustomSelectComponent from "../CustomSelectComponent/CustomSelectComponent";
 import { Button, Grid } from "@mantine/core";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 interface FilterComponentProps {
   genres: Genre[];
   onUpdateFilter: (newFilterData: UserInputFilter) => void;
@@ -16,22 +18,38 @@ export default function FilterComponent({
   genres,
   onUpdateFilter,
 }: FilterComponentProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const selectedGenres = params.get("with_genres")?.split(",") || [];
+  const selectedYears = params.get("primary_release_year")
+    ? { label: params.get("primary_release_year") as string, value: params.get("primary_release_year") as string }
+    : null;
+  const ratingFrom = params.get("vote_average.gte")
+    ? { label: params.get("vote_average.gte") as string, value: params.get("vote_average.gte") as string }
+    : null;
+  const ratingTo = params.get("vote_average.lte")
+    ? { label: params.get("vote_average.lte") as string, value: params.get("vote_average.lte") as string }
+    : null;
+  const sortBy = params.get("sort_by")
+    ? { label: sortByValues.find(option => option.value === params.get("sort_by"))?.label || "Sort By", value: params.get("sort_by") as string }
+    : { label: "Most Popular", value: "popularity.desc" };
+
+
   const [filterData, setFilterData] = useState<UserInputFilter>({
-    selectedGenres: [],
-    selectedYears: null,
-    ratingFrom: null,
-    ratingTo: null,
-    sortBy: { label: "Most Popular", value: "popularity.desc" },
+    selectedGenres: selectedGenres,
+    selectedYears: selectedYears,
+    ratingFrom: ratingFrom,
+    ratingTo: ratingTo,
+    sortBy: sortBy,
   });
 
   function handleChange(
     inputIdentifier: keyof UserInputFilter,
     newValue:
       | string[]
-      | UserInputFilter["selectedYears"]
-      | UserInputFilter["ratingFrom"]
-      | UserInputFilter["ratingTo"]
-      | UserInputFilter["sortBy"]
+      | OptionInterface
       | null
   ) {
     const newFilter = {
@@ -40,24 +58,42 @@ export default function FilterComponent({
     };
     setFilterData(newFilter);
     onUpdateFilter(newFilter);
+    updateURLParameters(newFilter);
   }
 
-  console.log(filterData, filterData);
+
+
+  function updateURLParameters(newFilter: UserInputFilter) {
+    const params = new URLSearchParams();
+    if (newFilter.selectedGenres.length) {
+      params.set("with_genres", newFilter.selectedGenres.join(","));
+    }
+    if (newFilter.selectedYears) {
+      params.set("primary_release_year", newFilter.selectedYears.value);
+    }
+    if (newFilter.ratingFrom) {
+      params.set("vote_average.gte", newFilter.ratingFrom.value);
+    }
+    if (newFilter.ratingTo) {
+      params.set("vote_average.lte", newFilter.ratingTo.value);
+    }
+    if (newFilter.sortBy) {
+      params.set("sort_by", newFilter.sortBy.value);
+    }
+    navigate(`?${params.toString()}`);
+  }
+
   const handleButtonClick = () => {
-    setFilterData({
+    const defaultFilterData = {
       selectedGenres: [],
       selectedYears: null,
       ratingFrom: null,
       ratingTo: null,
       sortBy: { label: "Most Popular", value: "popularity.desc" },
-    });
-    onUpdateFilter({
-      selectedGenres: [],
-      selectedYears: null,
-      ratingFrom: null,
-      ratingTo: null,
-      sortBy: null,
-    });
+    };
+    setFilterData(defaultFilterData);
+    onUpdateFilter(defaultFilterData);
+    navigate('');
   };
 
   const isDisabled =

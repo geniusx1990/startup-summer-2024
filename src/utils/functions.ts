@@ -1,3 +1,4 @@
+import { sortByValues } from "./constants";
 import { Movie } from "./types";
 
 export function fillGenresArray(genres: string[]): string {
@@ -50,3 +51,41 @@ export function getValueById(movies: Movie[], id: number) {
   const movie = movies.find((movie) => movie.id === id);
   return movie ? movie.rating : 0;
 }
+
+
+export const getFilterDataFromURL = () => {
+  const params = new URLSearchParams(location.search);
+
+  const withGenres = params.get("with_genres");
+  const primaryReleaseYear = params.get("primary_release_year");
+  const voteAverageGte = params.get("vote_average.gte");
+  const voteAverageLte = params.get("vote_average.lte");
+  const sortByParam = params.get("sort_by");
+
+  const selectedGenres = withGenres ? withGenres.split(",") : [];
+  const selectedYears = primaryReleaseYear
+    ? { label: primaryReleaseYear, value: primaryReleaseYear }
+    : null;
+  const ratingFrom = voteAverageGte
+    ? { label: voteAverageGte, value: voteAverageGte }
+    : null;
+  const ratingTo = voteAverageLte
+    ? { label: voteAverageLte, value: voteAverageLte }
+    : null;
+
+  const sortBy = sortByParam
+    ? sortByValues.find((option) => option.value === sortByParam) || {
+        label: sortByParam,
+        value: sortByParam,
+      }
+    : { label: "Most Popular", value: "popularity.desc" };
+console.log(sortBy)
+  return {
+    selectedGenres,
+    selectedYears,
+    ratingFrom,
+    ratingTo,
+    sortBy,
+  };
+};
+
