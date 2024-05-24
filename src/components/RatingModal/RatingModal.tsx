@@ -22,7 +22,7 @@ export default function RatingModal({
   setFilteredFilms,
 }: {
   film: Movie | MovieDetails;
-  setFilteredFilms: (movieArr: Movie[]) => void;
+  setFilteredFilms?: (movieArr: Movie[]) => void;
 }) {
   const [opened, { open, close }] = useDisclosure(false);
   const savedRatingArray = JSON.parse(`${localStorage.getItem("cardsRated")}`);
@@ -33,7 +33,9 @@ export default function RatingModal({
     const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
     const updatedArr = arr.filter((movie) => movie.id !== film.id);
     localStorage.setItem("cardsRated", JSON.stringify(updatedArr));
-    setFilteredFilms(updatedArr);
+    if (setFilteredFilms) {
+      setFilteredFilms(updatedArr);
+    }
     setRating(0);
     close();
   };

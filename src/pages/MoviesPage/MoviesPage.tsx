@@ -34,8 +34,7 @@ const MoviesPage = ({ genres }: { genres: Genre[] }) => {
   }
 
   const moviesURL = `${proxyURL}${routes.movies}`;
-  /*   const genresURL = `${proxyURL}${routes.genres}`;
-   */
+  
   useEffect(() => {
     const initialFilterData = getFilterDataFromURL();
     setFilterData(initialFilterData);
