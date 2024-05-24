@@ -1,5 +1,4 @@
 import "./style.css";
-
 import { Genre, Movie } from "../../utils/types";
 import MovieCard from "../MovieCard/MovieCard";
 import { useState } from "react";
@@ -10,8 +9,10 @@ export default function MoviesList({
   genres,
   onChange,
   currentPage,
+  setFilteredFilms,
 }: {
   films: Movie[];
+  setFilteredFilms?: (props: Movie[]) => void;
   genres: Genre[];
   currentPage: number;
   onChange: (activePage: number) => void;
@@ -19,7 +20,12 @@ export default function MoviesList({
   const [activePage, setPage] = useState(currentPage);
   const totalPages = 500;
   const items = films.map((film) => (
-    <MovieCard key={film.id} film={film} genres={genres} />
+    <MovieCard
+      key={film.id}
+      film={film}
+      genres={genres}
+      setFilteredFilms={setFilteredFilms}
+    />
   ));
 
   const onPageChange = (activePage: number) => {

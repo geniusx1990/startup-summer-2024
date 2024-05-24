@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./style.css";
 import { Genre, Movie } from "../../utils/types";
 import { Card, Flex, Group, Image, Text } from "@mantine/core";
@@ -16,8 +17,10 @@ import { proxyURL, routes } from "../../utils/api";
 export default function MovieCard({
   film,
   genres,
+  setFilteredFilms,
 }: {
   film: Movie;
+  setFilteredFilms: any;
   genres: Genre[];
 }) {
   const getGenresNames = (genreIds: number[], genres: Genre[]): string[] => {
@@ -138,7 +141,7 @@ export default function MovieCard({
           </Group>
         </Flex>
         <div onClick={handleRatingClick}>
-          <RatingModal film={film} />
+          <RatingModal film={film} setFilteredFilms={setFilteredFilms} />
         </div>
       </Group>
     </Card>

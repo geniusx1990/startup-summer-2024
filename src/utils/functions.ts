@@ -79,7 +79,6 @@ export const getFilterDataFromURL = () => {
         value: sortByParam,
       }
     : { label: "Most Popular", value: "popularity.desc" };
-console.log(sortBy)
   return {
     selectedGenres,
     selectedYears,

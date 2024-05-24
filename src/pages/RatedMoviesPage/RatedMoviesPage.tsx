@@ -56,6 +56,7 @@ export default function RatedMoviesPage() {
       ) : (
         <MoviesList
           films={filteredFilms}
+          setFilteredFilms={setFilteredFilms}
           genres={genres}
           onChange={(activePage: number) => setCurrentPage(activePage)}
           currentPage={currentPage}

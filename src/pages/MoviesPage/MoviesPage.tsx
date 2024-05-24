@@ -9,10 +9,11 @@ import MoviesList from "../../components/MoviesList/MoviesList";
 import EmptyStateMainPage from "../../components/EmptyStateMainPage/EmptyStateMainPage";
 import PageHeaderTitle from "../../components/PageHeaderTitle/PageHeaderTitle";
 import { getFilterDataFromURL } from "../../utils/functions";
+import withFetch from "../../utils/withFetch";
+import useFetch from "./useFetch";
 
-export default function MoviesPage() {
+const MoviesPage = ({ genres }: { genres: Genre[] }) => {
   const [films, setFilms] = useState<Movie[]>([]);
-  const [genres, setGenres] = useState<Genre[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterData, setFilterData] = useState<UserInputFilter>({
@@ -23,8 +24,6 @@ export default function MoviesPage() {
     sortBy: { label: "Most Popular", value: "popularity.desc" },
   });
   const [initialLoad, setIsInitialLoad] = useState(false);
-  const [genresLoaded, setGenresLoaded] = useState(false);
-
   const updateFilterData = (newFilterData: UserInputFilter) => {
     setFilterData(newFilterData);
   };
@@ -35,19 +34,17 @@ export default function MoviesPage() {
   }
 
   const moviesURL = `${proxyURL}${routes.movies}`;
-  const genresURL = `${proxyURL}${routes.genres}`;
-
+  /*   const genresURL = `${proxyURL}${routes.genres}`;
+   */
   useEffect(() => {
     const initialFilterData = getFilterDataFromURL();
     setFilterData(initialFilterData);
-    console.log(initialFilterData, "initialFilterData");
     setIsInitialLoad(true);
   }, []);
 
   useEffect(() => {
     if (!initialLoad) return;
 
-    console.log("Filter or page changed", filterData, currentPage);
     setIsLoading(true);
     const params = new URLSearchParams();
     if (filterData.selectedGenres.length > 0) {
@@ -71,7 +68,6 @@ export default function MoviesPage() {
 
     const urlWithParams = `${moviesURL}?${params.toString()}&language=en-US`;
 
-    console.log("Fetching movies with URL:", urlWithParams);
     fetch(urlWithParams)
       .then((response) => response.json())
       .then((data) => {
@@ -79,20 +75,6 @@ export default function MoviesPage() {
         setIsLoading(false);
       });
   }, [filterData, currentPage, initialLoad]);
-
-  useEffect(() => {
-    if (genresLoaded) return;
-
-    console.log("Fetching genres");
-    setIsLoading(true);
-    fetch(genresURL)
-      .then((response) => response.json())
-      .then((data) => {
-        setGenres(data as Genre[]);
-        setGenresLoaded(true);
-        setIsLoading(false);
-      });
-  }, [genresLoaded]);
 
   return (
     <Container className="container" size={"1440px"}>
@@ -112,4 +94,6 @@ export default function MoviesPage() {
       )}
     </Container>
   );
-}
+};
+
+export default withFetch({ Component: MoviesPage, useFetch });

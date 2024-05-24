@@ -17,7 +17,13 @@ function isMovieDetails(film: Movie | MovieDetails): film is MovieDetails {
   return (film as MovieDetails).runtime !== undefined;
 }
 
-export default function RatingModal({ film }: { film: Movie | MovieDetails }) {
+export default function RatingModal({
+  film,
+  setFilteredFilms,
+}: {
+  film: Movie | MovieDetails;
+  setFilteredFilms: (movieArr: Movie[]) => void;
+}) {
   const [opened, { open, close }] = useDisclosure(false);
   const savedRatingArray = JSON.parse(`${localStorage.getItem("cardsRated")}`);
   const savedRating = getValueById(savedRatingArray, film.id);
@@ -27,7 +33,7 @@ export default function RatingModal({ film }: { film: Movie | MovieDetails }) {
     const arr: Movie[] = JSON.parse(`${localStorage.getItem("cardsRated")}`);
     const updatedArr = arr.filter((movie) => movie.id !== film.id);
     localStorage.setItem("cardsRated", JSON.stringify(updatedArr));
-
+    setFilteredFilms(updatedArr);
     setRating(0);
     close();
   };
